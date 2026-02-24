@@ -3,8 +3,8 @@ guid: 6b4e133b385341244b6ba98eaf0fe811
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8014264061706053884
-    second: cup_yeast_0
+      213: -4692545225487403939
+    second: Cup_yeast_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cup_yeast_0
+      name: Cup_yeast_0
       rect:
         serializedVersion: 2
-        x: 98
-        y: 197
-        width: 459
-        height: 486
+        x: 608
+        y: 206
+        width: 848
+        height: 1186
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 407d4d91c4d97c090800000000000000
-      internalID: -8014264061706053884
+      spriteID: d543e56cafab0eeb0800000000000000
+      internalID: -4692545225487403939
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cup_yeast_0: -8014264061706053884
+      Cup_yeast_0: -4692545225487403939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

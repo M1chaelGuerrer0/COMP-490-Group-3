@@ -3,8 +3,8 @@ guid: 6b10ff0fbf0d3504894c5504837e5d79
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6242852387052353862
-    second: yeast_0
+      213: 4708840977219321115
+    second: Yeast_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: yeast_0
+      name: Yeast_0
       rect:
         serializedVersion: 2
-        x: 99
-        y: 223
-        width: 449
-        height: 463
+        x: 273
+        y: 262
+        width: 1518
+        height: 1346
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 64974738b2113a650800000000000000
-      internalID: 6242852387052353862
+      spriteID: b1df5f69be9295140800000000000000
+      internalID: 4708840977219321115
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      yeast_0: 6242852387052353862
+      Yeast_0: 4708840977219321115
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

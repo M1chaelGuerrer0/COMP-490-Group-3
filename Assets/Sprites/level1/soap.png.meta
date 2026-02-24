@@ -3,8 +3,8 @@ guid: b67ee8619b05a3041b628511d450c5a3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2749352931902247497
-    second: soap_0
+      213: 1025785841229483327
+    second: Soap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: soap_0
+      name: Soap_0
       rect:
         serializedVersion: 2
-        x: 111
-        y: 58
-        width: 394
-        height: 635
+        x: 367
+        y: 31
+        width: 1330
+        height: 2612
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9425634cce9a72620800000000000000
-      internalID: 2749352931902247497
+      spriteID: f3dcb1aa9c25c3e00800000000000000
+      internalID: 1025785841229483327
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      soap_0: 2749352931902247497
+      Soap_0: 1025785841229483327
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

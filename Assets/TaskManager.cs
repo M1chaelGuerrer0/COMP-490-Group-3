@@ -2,98 +2,123 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using TMPro;
 
+// This class manages the sequence of tasks in the game, 
+//      tracks time, applies penalties for incorrect actions, 
+//      and handles the reaction video when all tasks are completed.
 public class TaskManager : MonoBehaviour
 {
-    // list of all tasks
-    [SerializeField] private List<Task> activateTasks = new List<Task>();
     
-    // video and screen
+    [Header("Ordered Task List")]
+    [SerializeField] private List<Task> orderedTasks;
+    private int currentTaskIndex = 0;
+
+    [Header("Timer")]
+    [SerializeField] private float penaltyTime = 5f;
+    private float timeElapsed = 0f;
+    private bool timerRunning = false;
+    [SerializeField] private TMP_Text timerText;
+
+    [Header("Video")]
     [SerializeField] private VideoClip reaction;
-    [SerializeField] private RawImage videoScreen; 
+    [SerializeField] private RawImage videoScreen;
     private VideoPlayer videoPlayer;
 
-    void Start() 
-    {
+    // on start:
+    //     Set up video player
+    //     Subscribe to task completion events
+    //     Start timer
+    void Start() {
         SetupVideoPlayer();
-        
-        Task[] foundTasks = FindObjectsOfType<Task>();
-        activateTasks.AddRange(foundTasks); 
 
-        foreach (Task task in activateTasks) 
-        {
-            task.OnTaskCompleted += HandleTaskCompleted;
+        foreach (Task task in orderedTasks) {
+            task.OnTaskCompleted += HandleTaskAttempt;
+        }
+        timerRunning = true; // start timer when the game starts
+    }
+
+    // on update:
+    //     If timer is running, update elapsed time
+    void Update() {
+        if (timerRunning) {
+            timeElapsed += Time.deltaTime;
+        }
+        if (timerText != null) {
+            timerText.text = $"Time: {timeElapsed:F2}s";
+        }        
+    }
+
+    // handles task completion attempts
+    void HandleTaskAttempt(Task attemptedTask) {
+        if(attemptedTask == orderedTasks[currentTaskIndex]) {
+            Debug.Log("Correct task completed!");
+            currentTaskIndex++;
+
+            if (currentTaskIndex >= orderedTasks.Count) {
+                AllTasksCompleted();
+            }
+        } 
+        else {
+            Debug.Log("Wrong task! Penalty applied.");
+            timeElapsed += penaltyTime;
         }
     }
 
+    // called by containers when wrong ingredient is added
+    public void AddPenalty() {
+    timeElapsed += penaltyTime;
+    Debug.Log("Penalty Applied! +" + penaltyTime + " seconds");
+    }
+    
+    // when all tasks are completed:
+    //      Stop timer and display final time
+    //      Play reaction video
+    void AllTasksCompleted() {
+        Debug.Log("All tasks completed! Total time: " + timeElapsed.ToString("F2") + " seconds.");
+        timerRunning = false;
+        PlayReaction();
+    }
+
+    // sets up the video player component and render texture
     void SetupVideoPlayer() 
     {
-        // create VideoPlayer
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
         videoPlayer.playOnAwake = false;
         videoPlayer.isLooping = false;
-        
+
         if (reaction != null)
             videoPlayer.clip = reaction;
-        
-        // setup for UI display
+
         videoPlayer.renderMode = VideoRenderMode.RenderTexture;
-        
-        // virtual screen
+
         RenderTexture rt = new RenderTexture(1920, 1080, 24);
         videoPlayer.targetTexture = rt;
-        
-        
+
         if (videoScreen != null)
         {
             videoScreen.texture = rt;
-            videoScreen.gameObject.SetActive(false); // Hide initially
+            videoScreen.gameObject.SetActive(false);
         }
-        else
-        {
-            Debug.LogError("VideoScreen not assigned");
-        }
-        
+
         videoPlayer.loopPointReached += OnVideoEnded;
     }
 
-    // removes task from list if completed and checks if all are completed
-    void HandleTaskCompleted(Task completedTask) 
-    {
-        activateTasks.Remove(completedTask);
-        completedTask.OnTaskCompleted -= HandleTaskCompleted;
-
-        if (activateTasks.Count == 0)
-        {
-            Debug.Log("All tasks completed!");
-            PlayReaction();
-        }
-    }
-
-
+    // plays the reaction video and shows the video screen
     void PlayReaction() 
     {
-        if (videoPlayer != null && videoPlayer.clip != null)
-        {
-            // show the video screen
-            if (videoScreen != null)
-                videoScreen.gameObject.SetActive(true);
-            
-            videoPlayer.Play();
-            Debug.Log($"Playing video: {videoPlayer.clip.name}");
-        }
-        else
-        {
-            Debug.LogWarning("No video assigned or VideoPlayer missing");
-        }
+        if (videoScreen != null)
+            videoScreen.gameObject.SetActive(true);
+
+        videoPlayer.Play();
     }
 
+    // when video ends, hide the video screen and log completion
     void OnVideoEnded(VideoPlayer vp)
     {
-        Debug.Log("Reaction video finished");
-        
-        // Hide video screen
         if (videoScreen != null)
             videoScreen.gameObject.SetActive(false);
+
+        Debug.Log("Experiment Complete!");
     }
 }

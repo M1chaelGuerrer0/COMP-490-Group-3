@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 840155c42a3fbc94ab6d2784c9e07108
+guid: 17b2b8c56d19fc348b78484506889e3c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5222742899494102466
-    second: Sink_0
+      213: 8393616588390936079
+    second: spoon_soap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 336, y: 166, z: 299, w: 357}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sink_0
+      name: spoon_soap_0
       rect:
         serializedVersion: 2
-        x: 368
-        y: 160
-        width: 1302
-        height: 915
+        x: 286
+        y: 185
+        width: 1489
+        height: 412
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 6, z: 0, w: 0}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e3ad57211071587b0800000000000000
-      internalID: -5222742899494102466
+      spriteID: f0e2edbd0dd1c7470800000000000000
+      internalID: 8393616588390936079
       vertices: []
       indices: 
       edges: []
@@ -125,8 +125,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Sink_0: -5222742899494102466
+      spoon_soap_0: 8393616588390936079
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

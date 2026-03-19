@@ -8,4 +8,9 @@ public class InstructionsUI : MonoBehaviour
     {
         instructionPanel.SetActive(!instructionPanel.activeSelf);
     }
+
+    public void CloseInstructions()
+    {
+        instructionPanel.SetActive(false);
+    }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Ingredient : MonoBehaviour
 {
     public string ingredientID;
-    public Task taskToComplete;
 
     // to remember original identity (Spoon, Syringe, etc.)
     public string baseIngredientID;
@@ -23,13 +22,11 @@ public class Ingredient : MonoBehaviour
     public void SetIngredient(string newID, Task newTask)
     {
         ingredientID = newID;
-        taskToComplete = newTask;
     }
 
     // Reset back to original state (e.g., Spoon, Syringe, etc.)
     public void ResetIngredient()
     {
         ingredientID = baseIngredientID;
-        taskToComplete = null;
     }
 }

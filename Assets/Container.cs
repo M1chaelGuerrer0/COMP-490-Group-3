@@ -36,8 +36,7 @@ public class Container : MonoBehaviour
         foreach (IngredientSpritePair pair in acceptedIngredients)
         {
             // Accept either exact match OR base tool (for flexibility like SpoonSoap → Sink)
-            if (ingredient.ingredientID == pair.ingredientID ||
-                ingredient.baseIngredientID == pair.ingredientID)
+            if (ingredient.ingredientID == pair.ingredientID)
             {
                 Debug.Log("Accepted: " + pair.ingredientID);
 
@@ -57,7 +56,7 @@ public class Container : MonoBehaviour
                     return;
                 }
 
-                // CASE 2: NORMAL USE (e.g., SpoonSoap → Flask, Yeast → Cup)
+                // CASE 2: NORMAL USE (e.g., SpoonSoap → Flask, Yeast → Cup):
 
                 // Complete task
                 if (pair.taskToComplete != null)
@@ -69,17 +68,23 @@ public class Container : MonoBehaviour
                 if (pair.newSprite != null)
                     spriteRenderer.sprite = pair.newSprite;
 
-                // Reset tool back to original state (Spoon, Syringe, etc.)
-                ingredient.ResetIngredient();
-
-                // Reset TOOL sprite
-                SpriteRenderer toolRenderer = obj.GetComponent<SpriteRenderer>();
-                if (toolRenderer != null && defaultToolSprite != null)
+                // ONLY reset if it's actually a TOOL (like spoon)
+                if (!string.IsNullOrEmpty(ingredient.baseIngredientID))
                 {
-                    toolRenderer.sprite = defaultToolSprite;
-                }
+                    // AND only if it was transformed (e.g., SpoonSoap → Spoon)
+                    if (ingredient.ingredientID != ingredient.baseIngredientID)
+                    {
+                        ingredient.ResetIngredient();
 
-                Debug.Log("Tool reset to: " + ingredient.baseIngredientID);
+                        SpriteRenderer objRenderer = obj.GetComponent<SpriteRenderer>();
+                        if (objRenderer != null && defaultToolSprite != null)
+                        {
+                            objRenderer.sprite = defaultToolSprite;
+                        }
+
+                        Debug.Log("Tool reset to: " + ingredient.baseIngredientID);
+                    }
+                }
                 return;
             }
         }

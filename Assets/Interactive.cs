@@ -6,44 +6,51 @@ public class Interactive : MonoBehaviour
     [SerializeField] private Task taskToComplete;
 
     [Header("Animation")]
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator targetAnimator;
     [SerializeField] private string animationTriggerName = "Play";
 
     private TaskManager taskManager;
-    private bool hasBeenUsed = false;
+    private bool hasInteracted = false; // prevents spam
 
-    void Start()
+    void Awake()
     {
         taskManager = FindFirstObjectByType<TaskManager>();
     }
 
     void OnMouseDown()
     {
-        // Prevent repeat
-        if (hasBeenUsed) return;
+        // Prevent clicking multiple times
+        if (hasInteracted) return;
 
-        if (taskToComplete == null || taskManager == null) return;
-
-        // Ask TaskManager FIRST (same system as containers)
-        bool canProceed = taskManager.TryCompleteTask(taskToComplete);
-
-        if (!canProceed)
+        // Check if this is the correct task in order
+        if (taskManager != null && taskToComplete != null)
         {
-            return; // wrong order → do nothing
-        }
+            bool canProceed = taskManager.TryCompleteTask(taskToComplete);
 
-        // Mark used
-        hasBeenUsed = true;
+            if (!canProceed)
+            {
+                Debug.Log("Wrong step, cannot interact yet.");
+                return;
+            }
+        }
 
         // Play animation
-        if (animator != null)
+        if (targetAnimator != null)
         {
-            animator.SetTrigger(animationTriggerName);
+            targetAnimator.SetTrigger(animationTriggerName);
         }
 
-        // Complete task
-        taskToComplete.CompleteTask();
+        hasInteracted = true;
+    }
 
-        Debug.Log(gameObject.name + " clicked and task completed");
+    // THIS IS CALLED BY ANIMATION EVENT
+    public void OnAnimationFinished()
+    {
+        Debug.Log("Animation finished, completing task.");
+
+        if (taskToComplete != null)
+        {
+            taskToComplete.CompleteTask();
+        }
     }
 }

@@ -269,12 +269,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Container
   acceptedIngredients:
   - ingredientID: Spoon
-    newSprite: {fileID: -3387661014318127682, guid: 4346c2fb55e44df4999d8ff27ec66aaf, type: 3}
-    transformToID: SpoonWater
+    newTool: {fileID: -3387661014318127682, guid: 4346c2fb55e44df4999d8ff27ec66aaf, type: 3}
+    newToolID: SpoonWater
     taskToComplete: {fileID: 0}
   - ingredientID: SpoonSoap
-    newSprite: {fileID: -3387661014318127682, guid: 4346c2fb55e44df4999d8ff27ec66aaf, type: 3}
-    transformToID: SpoonWater
+    newTool: {fileID: -3387661014318127682, guid: 4346c2fb55e44df4999d8ff27ec66aaf, type: 3}
+    newToolID: SpoonWater
     taskToComplete: {fileID: 0}
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!61 &41340606
@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 88389061}
   - component: {fileID: 88389063}
   - component: {fileID: 88389064}
+  - component: {fileID: 88389065}
   m_Layer: 0
   m_Name: cup
   m_TagString: Cup
@@ -530,7 +531,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -6067909195882770789, guid: ca28d9e3f7a4b754d8a6f31e1ed6ae74, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6666667}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -555,6 +556,7 @@ Transform:
   m_Children:
   - {fileID: 1056193907}
   - {fileID: 1731132141}
+  - {fileID: 443539679}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &88389059
@@ -571,12 +573,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   acceptedIngredients:
   - ingredientID: Yeast
-    newSprite: {fileID: 4272156652636413595, guid: 6b4e133b385341244b6ba98eaf0fe811, type: 3}
-    transformToID: 
+    newTool: {fileID: 0}
+    newToolID: 
     taskToComplete: {fileID: 1080774080}
   - ingredientID: SpoonWater
-    newSprite: {fileID: -4008023694702058550, guid: 591ca9565b65d984cbabba1ff1b8543a, type: 3}
-    transformToID: 
+    newTool: {fileID: 0}
+    newToolID: 
     taskToComplete: {fileID: 97210170}
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!61 &88389060
@@ -664,7 +666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickableTask
   taskToComplete: {fileID: 33211295}
-  animator: {fileID: 88389064}
+  targetAnimator: {fileID: 88389064}
   animationTriggerName: Play
 --- !u!95 &88389064
 Animator:
@@ -688,6 +690,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &88389065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88389056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c70a356653d1464087b6413bdb30460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOnTaskComplete
+  taskSprites:
+  - task: {fileID: 1080774080}
+    sprite: {fileID: 4272156652636413595, guid: 6b4e133b385341244b6ba98eaf0fe811, type: 3}
+  - task: {fileID: 97210170}
+    sprite: {fileID: 2819087098208975252, guid: e16a12aa93a96294c9e09c1bcadcc200, type: 3}
+  - task: {fileID: 33211295}
+    sprite: {fileID: -5753327009508794314, guid: 0adf924cd457a2b4fb3cb13193d85303, type: 3}
 --- !u!1 &97210169
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +797,96 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8454f4402e4fabc4c9f199fdfd0ad640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Task
+--- !u!1 &443539678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 443539679}
+  - component: {fileID: 443539680}
+  m_Layer: 0
+  m_Name: cup_rest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &443539679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443539678}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 88389058}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &443539680
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443539678}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
+  m_Sprite: {fileID: -4008023694702058550, guid: 591ca9565b65d984cbabba1ff1b8543a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6666667}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.81, y: 2.51}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,12 +1841,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Container
   acceptedIngredients:
   - ingredientID: Spoon
-    newSprite: {fileID: 8393616588390936079, guid: 17b2b8c56d19fc348b78484506889e3c, type: 3}
-    transformToID: SpoonSoap
+    newTool: {fileID: 8393616588390936079, guid: 17b2b8c56d19fc348b78484506889e3c, type: 3}
+    newToolID: SpoonSoap
     taskToComplete: {fileID: 0}
   - ingredientID: SpoonWater
-    newSprite: {fileID: 8393616588390936079, guid: 17b2b8c56d19fc348b78484506889e3c, type: 3}
-    transformToID: SpoonSoap
+    newTool: {fileID: 8393616588390936079, guid: 17b2b8c56d19fc348b78484506889e3c, type: 3}
+    newToolID: SpoonSoap
     taskToComplete: {fileID: 0}
   defaultToolSprite: {fileID: 0}
 --- !u!1 &1028218392
@@ -2870,6 +2981,7 @@ GameObject:
   - component: {fileID: 1881755398}
   - component: {fileID: 1881755400}
   - component: {fileID: 1881755399}
+  - component: {fileID: 1881755401}
   m_Layer: 0
   m_Name: flask
   m_TagString: Flask
@@ -2964,16 +3076,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   acceptedIngredients:
   - ingredientID: H2O2
-    newSprite: {fileID: 6535731512939917998, guid: e6cae32176e5e1a4688a8e1ee5d0bbee, type: 3}
-    transformToID: 
+    newTool: {fileID: 0}
+    newToolID: 
     taskToComplete: {fileID: 1346425683}
   - ingredientID: SpoonSoap
-    newSprite: {fileID: -8647670514010925629, guid: 04cabce025246d8428da386ff4a2a425, type: 3}
-    transformToID: 
+    newTool: {fileID: 0}
+    newToolID: 
     taskToComplete: {fileID: 1285523660}
   - ingredientID: FinalMix
-    newSprite: {fileID: 0}
-    transformToID: 
+    newTool: {fileID: 0}
+    newToolID: 
     taskToComplete: {fileID: 199616342}
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!60 &1881755398
@@ -3255,8 +3367,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   taskToComplete: {fileID: 1073281397}
-  animator: {fileID: 1881755399}
+  targetAnimator: {fileID: 1881755399}
   animationTriggerName: Play
+--- !u!114 &1881755401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881755394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c70a356653d1464087b6413bdb30460, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteOnTaskComplete
+  taskSprites:
+  - task: {fileID: 1346425683}
+    sprite: {fileID: 6535731512939917998, guid: e6cae32176e5e1a4688a8e1ee5d0bbee, type: 3}
+  - task: {fileID: 1285523660}
+    sprite: {fileID: 2428986146827986586, guid: 15bf284c7aa8e8248a9d71a80e7c1d1b, type: 3}
+  - task: {fileID: 1073281397}
+    sprite: {fileID: -8647670514010925629, guid: 04cabce025246d8428da386ff4a2a425, type: 3}
 --- !u!1 &1971635109
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,10 +3933,10 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1028218394}
   - {fileID: 41340604}
+  - {fileID: 969728041}
   - {fileID: 88389058}
   - {fileID: 1881755396}
   - {fileID: 927728545}
-  - {fileID: 969728041}
   - {fileID: 2111862203}
   - {fileID: 729445583}
   - {fileID: 1479685105}

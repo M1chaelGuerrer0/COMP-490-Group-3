@@ -1,14 +1,15 @@
 using UnityEngine;
 
-// This script should be attached to the container GameObject (e.g., flask, cup).
+// Used for containers that accept ingredients (e.g., Flask, Cup, Sink).
+// Also used for sources that tools can be dipped into / grabbed with (e.g., Soap for Spoon → SpoonSoap).
 public class Container : MonoBehaviour
 {
     [System.Serializable]
     public class IngredientSpritePair
     {
         public string ingredientID; // What this container accepts
-        public Sprite newSprite; // What this container changes to
-        public string transformToID; // If set → transforms the dragged object (tool behavior)
+        public Sprite newTool; // change tool sprite to this (optional, for cases like Spoon → SpoonSoap)
+        public string newToolID; // If set → transform tool into this (e.g., Spoon → SpoonSoap). If null/empty → no transformation (e.g., Yeast → Cup)
         public Task taskToComplete; // Optional task to complete when accepted
     }
     
@@ -41,18 +42,18 @@ public class Container : MonoBehaviour
                 Debug.Log("Accepted: " + pair.ingredientID);
 
                 // CASE 1: TRANSFORM TOOL (e.g., Spoon → SoapLoaded)
-                if (!string.IsNullOrEmpty(pair.transformToID))
+                if (!string.IsNullOrEmpty(pair.newToolID))
                 {
-                    ingredient.SetIngredient(pair.transformToID, null);
+                    ingredient.SetIngredient(pair.newToolID, null);
 
                     // Change TOOL sprite
                     SpriteRenderer objRenderer = obj.GetComponent<SpriteRenderer>();
-                    if (objRenderer != null && pair.newSprite != null)
+                    if (objRenderer != null && pair.newTool != null)
                     {
-                        objRenderer.sprite = pair.newSprite;
+                        objRenderer.sprite = pair.newTool;
                     }
 
-                    Debug.Log("Tool now holds: " + pair.transformToID);
+                    Debug.Log("Tool now holds: " + pair.newToolID);
                     return;
                 }
 
@@ -73,10 +74,6 @@ public class Container : MonoBehaviour
                     // NOW actually complete the task
                     pair.taskToComplete.CompleteTask();
                 }
-
-                // Change CONTAINER sprite
-                if (pair.newSprite != null)
-                    spriteRenderer.sprite = pair.newSprite;
 
                 // ONLY reset if it's actually a TOOL (like spoon)
                 if (!string.IsNullOrEmpty(ingredient.baseIngredientID))

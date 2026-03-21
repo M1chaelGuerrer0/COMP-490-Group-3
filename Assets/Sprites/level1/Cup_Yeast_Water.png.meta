@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0adf924cd457a2b4fb3cb13193d85303
+guid: 591ca9565b65d984cbabba1ff1b8543a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5753327009508794314
-    second: Cup_Mix_0
+      213: -4008023694702058550
+    second: Cup_Yeast_Water_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cup_Mix_0
+      name: Cup_Yeast_Water_0
       rect:
         serializedVersion: 2
         x: 126
         y: 42
         width: 181
-        height: 265
+        height: 251
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 630619931931820b0800000000000000
-      internalID: -5753327009508794314
+      spriteID: ac36fe16fa3a068c0800000000000000
+      internalID: -4008023694702058550
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cup_Mix_0: -5753327009508794314
+      Cup_Yeast_Water_0: -4008023694702058550
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

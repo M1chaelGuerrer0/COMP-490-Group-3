@@ -3,8 +3,8 @@ guid: ca28d9e3f7a4b754d8a6f31e1ed6ae74
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2215870809167552170
-    second: Cup_empty_0
+      213: -6067909195882770789
+    second: Cup_Empty_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cup_empty_0
+      name: Cup_Empty_0
       rect:
         serializedVersion: 2
-        x: 608
-        y: 206
-        width: 848
-        height: 1186
+        x: 126
+        y: 42
+        width: 181
+        height: 265
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 651296f3d35af31e0800000000000000
-      internalID: -2215870809167552170
+      spriteID: b9ec41a4cb47acba0800000000000000
+      internalID: -6067909195882770789
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Cup_empty_0: -2215870809167552170
+      Cup_Empty_0: -6067909195882770789
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

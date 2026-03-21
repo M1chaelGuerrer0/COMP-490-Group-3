@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b435bed529480f346bc6b328fe72f9bf
+guid: ab0086596017e7949b9ceefc9ef8dce8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3127448798928283936
-    second: notes_0
+      213: -7619781262365528115
+    second: stirrer_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: notes_0
+      name: stirrer_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 635
-        height: 674
+        x: 82
+        y: 35
+        width: 46
+        height: 366
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0e658a623e11994d0800000000000000
-      internalID: -3127448798928283936
+      spriteID: dcf668e2059114690800000000000000
+      internalID: -7619781262365528115
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      notes_0: -3127448798928283936
+      stirrer_0: -7619781262365528115
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

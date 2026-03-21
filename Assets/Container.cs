@@ -59,8 +59,18 @@ public class Container : MonoBehaviour
                 // CASE 2: NORMAL USE (e.g., SpoonSoap → Flask, Yeast → Cup):
 
                 // Complete task
+                bool canProceed = true;
+
                 if (pair.taskToComplete != null)
                 {
+                    canProceed = taskManager.TryCompleteTask(pair.taskToComplete);
+
+                    if (!canProceed)
+                    {
+                        return; // stop everything
+                    }
+
+                    // NOW actually complete the task
                     pair.taskToComplete.CompleteTask();
                 }
 

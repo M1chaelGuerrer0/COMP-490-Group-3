@@ -29,14 +29,12 @@ public class TaskManager : MonoBehaviour
     //     Set up video player
     //     Subscribe to task completion events
     //     Start timer
+    
     void Start() {
         SetupVideoPlayer();
-
-        foreach (Task task in orderedTasks) {
-            task.OnTaskCompleted += HandleTaskAttempt;
-        }
         timerRunning = true; // start timer when the game starts
     }
+    
 
     // on update:
     //     If timer is running, update elapsed time
@@ -49,19 +47,29 @@ public class TaskManager : MonoBehaviour
         }        
     }
 
-    // handles task completion attempts
-    void HandleTaskAttempt(Task attemptedTask) {
-        if(attemptedTask == orderedTasks[currentTaskIndex]) {
+    // This method is called by tasks when they are attempted to be completed.
+    public bool TryCompleteTask(Task attemptedTask)
+    {
+        // Correct task
+        if (attemptedTask == orderedTasks[currentTaskIndex])
+        {
             Debug.Log("Correct task completed!");
+
             currentTaskIndex++;
 
-            if (currentTaskIndex >= orderedTasks.Count) {
+            if (currentTaskIndex >= orderedTasks.Count)
+            {
                 AllTasksCompleted();
             }
-        } 
-        else {
+
+            return true; // allow action
+        }
+        // Wrong task
+        else
+        {
             Debug.Log("Wrong task! Penalty applied.");
-            timeElapsed += penaltyTime;
+            AddPenalty();
+            return false; // block action
         }
     }
 

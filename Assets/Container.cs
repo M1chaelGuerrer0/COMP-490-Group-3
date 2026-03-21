@@ -1,104 +1,147 @@
 using UnityEngine;
 
-// Used for containers that accept ingredients (e.g., Flask, Cup, Sink).
-// Also used for sources that tools can be dipped into / grabbed with (e.g., Soap for Spoon → SpoonSoap).
+/// <summary>
+/// Handles interactions between Ingredients (or tools) and containers.
+/// 
+/// Responsibilities:
+/// 1. Accept valid ingredients/tools
+/// 2. Optionally transform tools (e.g., Spoon → SpoonSoap)
+/// 3. Trigger task progression (with order validation)
+/// 4. Reset tools after use if needed
+/// 
+/// Does NOT handle:
+/// - Visual state of containers (handled elsewhere)
+/// </summary>
+
 public class Container : MonoBehaviour
 {
     [System.Serializable]
-    public class IngredientSpritePair
-    {
-        public string ingredientID; // What this container accepts
-        public Sprite newTool; // change tool sprite to this (optional, for cases like Spoon → SpoonSoap)
-        public string newToolID; // If set → transform tool into this (e.g., Spoon → SpoonSoap). If null/empty → no transformation (e.g., Yeast → Cup)
-        public Task taskToComplete; // Optional task to complete when accepted
-    }
-    
-    [Header("Accepted Ingredients")]
-    [SerializeField] private IngredientSpritePair[] acceptedIngredients;
+    public class IngredientAction {
+        // The ID this container accepts (must match Ingredient.ingredientID)
+        [Header("Matching")]
+        public string ingredientID; 
 
-    [Header("Tool Reset Sprite (Optional)")]
+        // If set → transforms the tool (e.g., Spoon → SpoonSoap)
+        [Header("Tool Transformation (Optional)")]
+        public string newToolID; 
+
+        // Sprite to apply when tool transforms
+        public Sprite newTool; 
+
+        // Task triggered when this ingredient is accepted
+        [Header("Task (Optional)")]
+        public Task taskToComplete; 
+    }
+
+    // List of accepted ingredients/tools and their corresponding actions
+    [Header("Accepted Ingredients / Actions")]
+    [SerializeField] private IngredientAction[] acceptedIngredients;
+
+    // Sprite to revert tool back to after use (e.g., Spoon)
+    [Header("Tool Reset")]
     [SerializeField] private Sprite defaultToolSprite;
 
-    private SpriteRenderer spriteRenderer;
+    // Reference to TaskManager for validating task progression and applying penalties
     private TaskManager taskManager;
 
+    // Cache TaskManager reference on awake
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         taskManager = FindFirstObjectByType<TaskManager>();
     }
 
-    // This method is called when an ingredient is added to the container.
+    /// <summary>
+    /// Called when an object (ingredient/tool) is dropped onto this container.
+    /// </summary>
     public void TryAccept(GameObject obj)
     {
         Ingredient ingredient = obj.GetComponent<Ingredient>();
         if (ingredient == null) return;
 
-        foreach (IngredientSpritePair pair in acceptedIngredients)
+        foreach (IngredientAction action in acceptedIngredients)
         {
-            // Accept either exact match OR base tool (for flexibility like SpoonSoap → Sink)
-            if (ingredient.ingredientID == pair.ingredientID)
+            // Check if this container accepts the ingredient
+            if (ingredient.ingredientID != action.ingredientID)
+                continue;
+
+            Debug.Log("Accepted: " + action.ingredientID);
+
+            // --- CASE 1: TOOL TRANSFORMATION ---
+            // Example: Spoon → SpoonSoap (no task involved)
+            if (!string.IsNullOrEmpty(action.newToolID))
             {
-                Debug.Log("Accepted: " + pair.ingredientID);
-
-                // CASE 1: TRANSFORM TOOL (e.g., Spoon → SoapLoaded)
-                if (!string.IsNullOrEmpty(pair.newToolID))
-                {
-                    ingredient.SetIngredient(pair.newToolID, null);
-
-                    // Change TOOL sprite
-                    SpriteRenderer objRenderer = obj.GetComponent<SpriteRenderer>();
-                    if (objRenderer != null && pair.newTool != null)
-                    {
-                        objRenderer.sprite = pair.newTool;
-                    }
-
-                    Debug.Log("Tool now holds: " + pair.newToolID);
-                    return;
-                }
-
-                // CASE 2: NORMAL USE (e.g., SpoonSoap → Flask, Yeast → Cup):
-
-                // Complete task
-                bool canProceed = true;
-
-                if (pair.taskToComplete != null)
-                {
-                    canProceed = taskManager.TryCompleteTask(pair.taskToComplete);
-
-                    if (!canProceed)
-                    {
-                        return; // stop everything
-                    }
-
-                    // NOW actually complete the task
-                    pair.taskToComplete.CompleteTask();
-                }
-
-                // ONLY reset if it's actually a TOOL (like spoon)
-                if (!string.IsNullOrEmpty(ingredient.baseIngredientID))
-                {
-                    // AND only if it was transformed (e.g., SpoonSoap → Spoon)
-                    if (ingredient.ingredientID != ingredient.baseIngredientID)
-                    {
-                        ingredient.ResetIngredient();
-
-                        SpriteRenderer objRenderer = obj.GetComponent<SpriteRenderer>();
-                        if (objRenderer != null && defaultToolSprite != null)
-                        {
-                            objRenderer.sprite = defaultToolSprite;
-                        }
-
-                        Debug.Log("Tool reset to: " + ingredient.baseIngredientID);
-                    }
-                }
+                TransformTool(obj, ingredient, action);
                 return;
             }
+
+            // --- CASE 2: NORMAL INTERACTION ---
+            // Example: SpoonSoap → Flask (completes a task)
+            if (!HandleTask(action))
+                return;
+
+            // After successful task completion, reset tool if needed
+            ResetToolIfNeeded(obj, ingredient);
+            return;
         }
 
-        // Wrong ingredient
+        // --- WRONG INGREDIENT ---
         Debug.Log("Wrong ingredient added.");
         if (taskManager != null)
             taskManager.AddPenalty();
+    }
+
+    /// <summary>
+    /// Transforms a tool into another state (e.g., Spoon → SpoonSoap).
+    /// </summary>
+    private void TransformTool(GameObject obj, Ingredient ingredient, IngredientAction action)
+    {
+        ingredient.SetIngredient(action.newToolID, null);
+
+        SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
+        if (renderer != null && action.newTool != null)
+        {
+            renderer.sprite = action.newTool;
+        }
+
+        Debug.Log("Tool now holds: " + action.newToolID);
+    }
+
+    /// <summary>
+    /// Validates and completes a task using TaskManager.
+    /// </summary>
+    private bool HandleTask(IngredientAction action)
+    {
+        if (action.taskToComplete == null)
+            return true;
+
+        bool canProceed = taskManager.TryCompleteTask(action.taskToComplete);
+
+        if (!canProceed)
+            return false;
+
+        action.taskToComplete.CompleteTask();
+        return true;
+    }
+
+    /// <summary>
+    /// Resets tool back to its base state after use (e.g., SpoonSoap → Spoon).
+    /// </summary>
+    private void ResetToolIfNeeded(GameObject obj, Ingredient ingredient)
+    {
+        if (string.IsNullOrEmpty(ingredient.baseIngredientID))
+            return;
+
+        if (ingredient.ingredientID == ingredient.baseIngredientID)
+            return;
+
+        ingredient.ResetIngredient();
+
+        SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
+        if (renderer != null && defaultToolSprite != null)
+        {
+            renderer.sprite = defaultToolSprite;
+        }
+
+        Debug.Log("Tool reset to: " + ingredient.baseIngredientID);
     }
 }

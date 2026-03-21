@@ -4,94 +4,143 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
 
-// This class manages the sequence of tasks in the game, 
-//      tracks time, applies penalties for incorrect actions, 
-//      and handles the reaction video when all tasks are completed.
+/// <summary>
+/// Controls task progression, timing, penalties, and end-of-experiment behavior.
+/// 
+/// Responsibilities:
+/// - Enforce ordered task completion
+/// - Track elapsed time
+/// - Apply penalties for incorrect actions
+/// - Handle experiment completion (video playback)
+/// </summary>
 public class TaskManager : MonoBehaviour
 {
-    
-    [Header("Ordered Task List")]
+    [Header("Task Order")]
     [SerializeField] private List<Task> orderedTasks;
     private int currentTaskIndex = 0;
 
     [Header("Timer")]
     [SerializeField] private float penaltyTime = 5f;
-    private float timeElapsed = 0f;
-    private bool timerRunning = false;
     [SerializeField] private TMP_Text timerText;
 
-    [Header("Video")]
+    private float timeElapsed = 0f;
+    private bool timerRunning = false;
+
+    [Header("Completion Video")]
     [SerializeField] private VideoClip reaction;
     [SerializeField] private RawImage videoScreen;
+
     private VideoPlayer videoPlayer;
 
-    // on start:
-    //     Set up video player
-    //     Subscribe to task completion events
-    //     Start timer
-    
-    void Start() {
+    void Start()
+    {
         SetupVideoPlayer();
-        timerRunning = true; // start timer when the game starts
-    }
-    
-
-    // on update:
-    //     If timer is running, update elapsed time
-    void Update() {
-        if (timerRunning) {
-            timeElapsed += Time.deltaTime;
-        }
-        if (timerText != null) {
-            timerText.text = $"Time: {timeElapsed:F2}s";
-        }        
+        StartTimer();
     }
 
-    // This method is called by tasks when they are attempted to be completed.
+    void Update()
+    {
+        UpdateTimer();
+    }
+
+    // =========================
+    // TASK FLOW
+    // =========================
+
+    /// <summary>
+    /// Validates whether a task can be completed based on order.
+    /// </summary>
     public bool TryCompleteTask(Task attemptedTask)
     {
-        // Correct task
-        if (attemptedTask == orderedTasks[currentTaskIndex])
+        if (IsCorrectTask(attemptedTask))
         {
-            Debug.Log("Correct task completed!");
-
-            currentTaskIndex++;
-
-            if (currentTaskIndex >= orderedTasks.Count)
-            {
-                AllTasksCompleted();
-            }
-
-            return true; // allow action
+            AdvanceTask();
+            return true;
         }
-        // Wrong task
-        else
+
+        HandleWrongTask();
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if the attempted task matches the expected one.
+    /// </summary>
+    private bool IsCorrectTask(Task task)
+    {
+        return task == orderedTasks[currentTaskIndex];
+    }
+
+    /// <summary>
+    /// Advances to the next task or completes the experiment.
+    /// </summary>
+    private void AdvanceTask()
+    {
+        Debug.Log("Correct task completed!");
+
+        currentTaskIndex++;
+
+        if (currentTaskIndex >= orderedTasks.Count)
         {
-            Debug.Log("Wrong task! Penalty applied.");
-            AddPenalty();
-            return false; // block action
+            CompleteExperiment();
         }
     }
 
-    // called by containers when wrong ingredient is added
-    public void AddPenalty() {
-    timeElapsed += penaltyTime;
-    Debug.Log("Penalty Applied! +" + penaltyTime + " seconds");
+    /// <summary>
+    /// Handles incorrect task attempts.
+    /// </summary>
+    private void HandleWrongTask()
+    {
+        Debug.Log("Wrong task! Penalty applied.");
+        AddPenalty();
     }
-    
-    // when all tasks are completed:
-    //      Stop timer and display final time
-    //      Play reaction video
-    void AllTasksCompleted() {
-        Debug.Log("All tasks completed! Total time: " + timeElapsed.ToString("F2") + " seconds.");
+
+    // =========================
+    // TIMER
+    // =========================
+
+    private void StartTimer()
+    {
+        timerRunning = true;
+    }
+
+    private void UpdateTimer()
+    {
+        if (!timerRunning) return;
+
+        timeElapsed += Time.deltaTime;
+
+        if (timerText != null)
+        {
+            timerText.text = $"Time: {timeElapsed:F2}s";
+        }
+    }
+
+    public void AddPenalty()
+    {
+        timeElapsed += penaltyTime;
+        Debug.Log($"Penalty Applied! +{penaltyTime} seconds");
+    }
+
+    // =========================
+    // COMPLETION
+    // =========================
+
+    private void CompleteExperiment()
+    {
+        Debug.Log($"All tasks completed! Total time: {timeElapsed:F2} seconds.");
+
         timerRunning = false;
         PlayReaction();
     }
 
-    // sets up the video player component and render texture
-    void SetupVideoPlayer() 
+    // =========================
+    // VIDEO SYSTEM
+    // =========================
+
+    private void SetupVideoPlayer()
     {
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
+
         videoPlayer.playOnAwake = false;
         videoPlayer.isLooping = false;
 
@@ -112,8 +161,7 @@ public class TaskManager : MonoBehaviour
         videoPlayer.loopPointReached += OnVideoEnded;
     }
 
-    // plays the reaction video and shows the video screen
-    void PlayReaction() 
+    private void PlayReaction()
     {
         if (videoScreen != null)
             videoScreen.gameObject.SetActive(true);
@@ -121,8 +169,7 @@ public class TaskManager : MonoBehaviour
         videoPlayer.Play();
     }
 
-    // when video ends, hide the video screen and log completion
-    void OnVideoEnded(VideoPlayer vp)
+    private void OnVideoEnded(VideoPlayer vp)
     {
         if (videoScreen != null)
             videoScreen.gameObject.SetActive(false);

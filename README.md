@@ -8,88 +8,154 @@ If you run into errors you most likely have to go into settings and do the follo
 
 * Check if all task, videos, scripts, and sprites are assigned in the inspector.
 
-## Architecture Overview
+# 🧪 Experiment System – Quick Guide
 
-The experiment interaction system is built using a modular component-based design. Objects are separated by responsibility to keep the system scalable and maintainable for future experiments.
+This project uses small, focused scripts. Each script has one job.  
+Use this guide when creating new levels.
 
-The core components involved are:
-* Draggable
-* Ingredient
-* Container
-* Task
-* TaskManager
+---
 
-### Draggable
+# 🧠 Core Idea
 
-The Draggable component handles all mouse interaction:
-* Click to pick up
-* Drag movement
-* Drop detection
-* Overlap detection with containers
+Everything flows like this:
 
-This script is reusable and attached to:
+**Interaction → Task → Visual Change**
 
-* All ingredient objects
+---
 
-* The cup (since it can also be poured into the flask)
+# 📦 Scripts Overview
 
-Draggable does not decide what is correct or incorrect. It only detects whether it was dropped onto a valid Container.
+## 1. Task.cs
+Represents a single step in the experiment.
 
-### Ingredient
+**What it does:**
+- Tracks if a task is completed
+- Fires an event when completed
 
-The Ingredient component defines:
-* A unique ingredientID (string identifier)
-* A reference to the Task that should complete when used correctly
+**How to use:**
+- Create a GameObject for each task
+- Attach `Task`
+- Reference it in other scripts
 
-This allows containers to determine:
-* Whether they accept the ingredient
-* Which task should be completed when accepted
+---
 
-Ingredients do not contain logic about where they can be placed — that responsibility belongs to the container.
+## 2. TaskManager.cs
+Controls task order and game progression.
 
-### Container (Flask & Cup)
+**What it does:**
+- Enforces correct order
+- Applies penalties
+- Tracks time
+- Handles completion (video/end)
 
-Both the Flask and Cup use the same Container script.
+**How to use:**
+- Add to one GameObject (e.g., `GameManager`)
+- Assign tasks in order in the inspector
 
-Each container defines:
+---
 
-* A list of accepted ingredient IDs
-* The sprite to switch to when a specific ingredient is added
+## 3. Container.cs
+Handles drag-and-drop interactions.
 
-When a draggable object is dropped:
-1. The container checks if the object has an Ingredient component.
-2. It compares the ingredient’s ingredientID against its accepted list.
-3. If valid:
-   * The associated task is completed.
-   * The container sprite updates.
-4. If invalid:
-    * A time penalty is applied through TaskManager.
+**What it does:**
+- Accepts ingredients/tools
+- Transforms tools (e.g., Spoon → SpoonSoap)
+- Triggers tasks
+- Resets tools
 
-This makes Flask and Cup behavior data-driven rather than hardcoded.
+**How to use:**
+- Attach to:
+  - Flask
+  - Cup
+  - Sink
+  - Ingredient sources (Soap)
+- Configure accepted ingredients in inspector
 
-### Task System
+---
 
-Each ingredient references a Task component.
+## 4. Interactive.cs
+Handles click-based interactions. Used in flask swirling and cup stirring.
 
-The TaskManager:
+**What it does:**
+- Validates task order
+- Plays animation
+- Completes task AFTER animation
 
-* Stores an ordered list of tasks
-* Validates that tasks are completed in the correct sequence
-* Applies time penalties for incorrect steps
-* Stops the timer and plays the reaction video when all tasks are completed
+**How to use:**
+- Attach to clickable objects
+- Assign:
+  - Task
+  - Animator
+- Add animation event at end → `OnAnimationFinished`
 
-This ensures:
-* Step order is enforced
-* Incorrect actions do not fail the level but add time penalties
-* The experiment completion triggers only when all steps are correctly completed
+---
 
-### Design Benefits
+## 5. SpriteOnTaskComplete.cs
+Handles visual changes from tasks.
 
-This system provides:
-* Clear separation of responsibilities
-* Scalable architecture for additional experiments
-* Reusable drag-and-drop logic
-* Data-driven container behavior
-* Controlled task ordering and penalty system
+**What it does:**
+- Listens for task completion
+- Changes sprite
 
-The design allows future levels to introduce new containers, ingredients, and mechanics without rewriting core systems.
+**How to use:**
+- Attach to object with SpriteRenderer
+- Add task → sprite pairs
+
+⚠️ IF ANIMATION CONRTOLS SPRITE IT WILL BECOME CONFLICTED
+
+---
+
+# 🎬 Animations
+
+Use Animator for:
+- Movement (stirring, swirling)
+- Showing/hiding objects
+
+Do NOT:
+- Mix sprite control between animation and script
+
+You can hide sprite if needed!
+---
+
+# 🧠 General Rules
+
+- TaskManager = order
+- Container = drag interactions
+- Interactive = click + animation
+- Task = event
+- SpriteOnTaskComplete = visuals
+
+---
+
+# 🧪 Example Flow
+
+1. Drag ingredient → Container  
+2. Container checks task → TaskManager validates  
+3. Task completes → event fires  
+4. Sprite updates OR animation plays  
+
+---
+
+# ⚠️ Common Mistakes
+
+- ❌ Animator AND script both changing sprite  
+- ❌ Missing animation event  
+- ❌ Wrong Task reference  
+- ❌ Overlapping active objects  
+
+---
+
+# ✅ Tips for New Levels
+
+- Keep tasks simple and ordered  
+- Separate logic from visuals  
+- Reuse scripts  
+- Test step-by-step  
+
+---
+
+If something breaks, check:
+1. Task reference  
+2. Task order  
+3. Animation event  
+4. Sprite control source  

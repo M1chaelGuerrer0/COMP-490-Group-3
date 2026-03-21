@@ -1,21 +1,70 @@
 using System;
 using UnityEngine;
 
-// This class represents a task in the game. Each task can be completed, and it notifies the TaskManager when it is completed.
-// Tasks can be used to represent specific actions the player must take (e.g., "Add Yeast to Cup", "Use Spoon on Flask").
-public class Task : MonoBehaviour 
+/// <summary>
+/// Represents a single task in the game.
+/// 
+/// Responsibilities:
+/// - Track completion state
+/// - Notify listeners when completed (event-driven)
+/// 
+/// Does NOT handle:
+/// - Task order (TaskManager)
+/// - Visual updates (SpriteOnTaskComplete)
+/// </summary>
+public class Task : MonoBehaviour
 {
+    /// <summary>
+    /// Fired when this task is completed.
+    /// </summary>
     public event Action<Task> OnTaskCompleted;
 
     private bool isCompleted = false;
 
+    // =========================
+    // TASK STATE
+    // =========================
+
+    /// <summary>
+    /// Marks this task as completed and notifies listeners.
+    /// </summary>
     public void CompleteTask()
     {
-        if (isCompleted) return; // 🔥 prevent repeat
+        if (isCompleted)
+            return; // Prevent duplicate completion
 
         isCompleted = true;
 
         Debug.Log($"Task completed: {gameObject.name}");
+
+        NotifyTaskCompleted();
+    }
+
+    /// <summary>
+    /// Invokes the completion event safely.
+    /// </summary>
+    private void NotifyTaskCompleted()
+    {
         OnTaskCompleted?.Invoke(this);
+    }
+
+    // =========================
+    // OPTIONAL UTILITIES (FUTURE)
+    // =========================
+
+    /// <summary>
+    /// Returns whether this task has already been completed.
+    /// </summary>
+    public bool IsCompleted()
+    {
+        return isCompleted;
+    }
+
+    /// <summary>
+    /// Resets this task (useful for restarting levels).
+    /// </summary>
+    public void ResetTask()
+    {
+        isCompleted = false;
     }
 }

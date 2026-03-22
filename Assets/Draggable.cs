@@ -6,6 +6,7 @@ public class Draggable : MonoBehaviour
     private Vector3 offset;
     private Vector3 originalPosition;
     private SpriteRenderer spriteRenderer;
+    private bool isDragging = false;
 
     // Initialize references
     void Start()
@@ -19,6 +20,11 @@ public class Draggable : MonoBehaviour
     //     calculate the offset between the mouse position and the object's position
     void OnMouseDown()
     {
+        // Check global interaction lock (e.g. during pause, video playback, etc.)
+        if (TaskManager.IsInteractionLocked) return;
+
+        isDragging = true;
+
         spriteRenderer.sortingLayerName = "Front";
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - mousePos;
@@ -28,6 +34,9 @@ public class Draggable : MonoBehaviour
     //     update the object's position to follow the mouse, accounting for the offset
     void OnMouseDrag()
     {
+        // Check global interaction lock (e.g. during pause, video playback, etc.)
+        if (TaskManager.IsInteractionLocked) return;
+
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = mousePos + offset;
     }
@@ -36,6 +45,11 @@ public class Draggable : MonoBehaviour
     //     reset the sorting layer to default
     //     check for overlapping containers and try to place the ingredient in one if found
     void OnMouseUp() {
+        // Check global interaction lock (e.g. during pause, video playback, etc.)
+        if (TaskManager.IsInteractionLocked) return;
+        
+        isDragging = false;
+
         spriteRenderer.sortingLayerName = "Default";
 
         Collider2D myCollider = GetComponent<Collider2D>();
@@ -70,5 +84,23 @@ public class Draggable : MonoBehaviour
         }
 
         transform.position = originalPosition;
+    }
+
+    // Resets the ingredient to its original position and sorting layer.
+    public void ResetState()
+    {
+        isDragging = false;
+        spriteRenderer.sortingLayerName = "Default";
+        transform.position = originalPosition;
+    }
+
+    // Public method to reset the ingredient if it's currently being dragged (e.g. when interactions are locked).
+    public void ResetIfDragging()
+    {
+        if (isDragging)
+        {
+            isDragging = false;
+            ResetState();
+        }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Controls task progression, countdown timer, penalties, and game completion/failure.
@@ -10,6 +11,9 @@ using TMPro;
 
 public class TaskManager : MonoBehaviour
 {
+    // Static flag to globally lock interactions (e.g. during video playback, pause, etc.)
+    public static bool IsInteractionLocked = false;
+
     // =========================
     // TASK ORDER
     // =========================
@@ -64,10 +68,20 @@ public class TaskManager : MonoBehaviour
 
         if (penaltyText != null)
             penaltyText.gameObject.SetActive(false);
+
+        if (pausePanel != null)
+            pausePanel.SetActive(false);
     }
 
     void Update()
     {
+        // Handle pause/resume input ESCAPE key
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameEnded)
+        {
+            TogglePause();
+        }
+
+        // Update timer
         if (!timerRunning || gameEnded)
             return;
 
@@ -80,6 +94,7 @@ public class TaskManager : MonoBehaviour
         }
 
         UpdateTimerUI();
+        
     }
 
     // =========================
@@ -209,7 +224,8 @@ public class TaskManager : MonoBehaviour
         gameEnded = true;
         timerRunning = false;
 
-        DisableAllInteractions();
+        IsInteractionLocked = true; // Lock interactions globally
+
         PlayReaction();
     }
 
@@ -220,26 +236,11 @@ public class TaskManager : MonoBehaviour
         gameEnded = true;
         timerRunning = false;
 
-        DisableAllInteractions();
+        IsInteractionLocked = true; // Lock interactions globally
+
         if (losePanel != null)
             losePanel.SetActive(true); // SHOW LOSE PANEL
     }
-
-    private void DisableAllInteractions()
-    {
-        Container[] containers = FindObjectsByType<Container>(FindObjectsSortMode.None);
-        foreach (var c in containers)
-        {
-            c.enabled = false;
-        }
-
-        Interactive[] interactives = FindObjectsByType<Interactive>(FindObjectsSortMode.None);
-        foreach (var i in interactives)
-        {
-            i.enabled = false;
-        }
-    }
-
     // =========================
     // VIDEO SYSTEM
     // =========================
@@ -299,20 +300,51 @@ public class TaskManager : MonoBehaviour
     // PAUSE / RESUME
     // =========================
 
+    [Header("Pause UI")]
+    [SerializeField] private GameObject pausePanel;
+    
     public void PauseGame()
     {
-        timerRunning = false;
         Time.timeScale = 0f;
+        timerRunning = false;
+
+        IsInteractionLocked = true;
+
+        if (pausePanel != null)
+            pausePanel.SetActive(true);
     }
 
     public void ResumeGame()
     {
         if (gameEnded) return;
 
-        timerRunning = true;
         Time.timeScale = 1f;
+        timerRunning = true;
+
+        IsInteractionLocked = false;
+
+        // Reset any dragging ingredients to prevent bugs when resuming while dragging
+        Draggable[] draggables = FindObjectsByType<Draggable>(FindObjectsSortMode.None);
+        foreach (var d in draggables)
+        {
+            d.ResetIfDragging();
+        }
+
+        if (pausePanel != null)
+            pausePanel.SetActive(false);
     }
 
+    public void TogglePause()
+    {
+        if (pausePanel != null && pausePanel.activeSelf)
+        {
+            ResumeGame(); // already paused → resume
+        }
+        else
+        {
+            PauseGame(); // not paused → pause
+        }
+    }
     // =========================
     // RESTART SYSTEM
     // =========================
@@ -320,35 +352,8 @@ public class TaskManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        IsInteractionLocked = false;
 
-        gameEnded = false;
-        timerRunning = true;
-
-        timeRemaining = timeLimit;
-        currentTaskIndex = 0;
-
-        if (penaltyText != null)
-            penaltyText.gameObject.SetActive(false);
-
-        UpdateTimerUI();
-
-        // Re-enable interactions
-        Container[] containers = FindObjectsByType<Container>(FindObjectsSortMode.None);
-        foreach (var c in containers)
-        {
-            c.enabled = true;
-        }
-
-        Interactive[] interactives = FindObjectsByType<Interactive>(FindObjectsSortMode.None);
-        foreach (var i in interactives)
-        {
-            i.enabled = true;
-        }
-
-        if (winPanel != null)
-            winPanel.SetActive(false);
-
-        if (losePanel != null)
-            losePanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

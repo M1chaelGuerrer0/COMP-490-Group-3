@@ -34,6 +34,13 @@ public class Interactive : MonoBehaviour {
 
     void OnMouseDown()
     {
+        // Check global interaction lock (e.g. during pause, video playback, etc.)
+        if (TaskManager.IsInteractionLocked) 
+        {
+            if (taskManager == null) return;
+            return;
+        }
+
         if (!CanInteract())
             return;
 

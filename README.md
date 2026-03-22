@@ -8,14 +8,14 @@ If you run into errors you most likely have to go into settings and do the follo
 
 * Check if all task, videos, scripts, and sprites are assigned in the inspector.
 
-# 🧪 Experiment System – Quick Guide
+# Experiment System – Quick Guide
 
 This project uses small, focused scripts. Each script has one job.  
 Use this guide when creating new levels.
 
 ---
 
-# 🧠 Core Idea
+# Core Idea
 
 Everything flows like this:
 
@@ -23,7 +23,7 @@ Everything flows like this:
 
 ---
 
-# 📦 Scripts Overview
+# Scripts Overview
 
 ## 1. Task.cs
 Represents a single step in the experiment.
@@ -101,11 +101,11 @@ Handles visual changes from tasks.
 - Attach to object with SpriteRenderer
 - Add task → sprite pairs
 
-⚠️ IF ANIMATION CONRTOLS SPRITE IT WILL BECOME CONFLICTED
+IF ANIMATION CONTROLS SPRITE IT WILL BECOME CONFLICTED
 
 ---
 
-# 🎬 Animations
+# Animations
 
 Use Animator for:
 - Movement (stirring, swirling)
@@ -117,7 +117,72 @@ Do NOT:
 You can hide sprite if needed!
 ---
 
-# 🧠 General Rules
+# Restart System
+
+The game uses **scene reloading** to reset all state.
+
+**What it does:**
+- Resets all tasks, animations, and interactions automatically
+- Avoids complex manual reset logic
+
+**Implementation:**
+```csharp
+SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+---
+
+# Pause System
+
+The game supports pausing via:
+- ESC key
+- Pause button (UI)
+
+**Behavior:**
+- Freezes time using `Time.timeScale = 0`
+- Locks all interactions
+- UI remains active
+
+**Drag Behavior:**
+- Objects stay in place when paused mid-drag
+- On resume, dragged objects return to original position
+
+---
+
+# Interaction Lock
+
+A global interaction lock prevents input during:
+- Pause
+- Video playback
+- Game end states
+
+```csharp
+TaskManager.IsInteractionLocked
+
+---
+
+
+---
+
+## Win/Lose flow
+
+You implemented:
+- video → win panel
+- lose panel on timeout
+
+# 🏁 Game Flow
+
+**Win Condition:**
+- Complete all tasks in order
+- Plays completion video
+- Shows win panel after video ends
+
+**Lose Condition:**
+- Timer reaches zero
+- Shows lose panel
+
+---
+
+# General Rules
 
 - TaskManager = order
 - Container = drag interactions
@@ -127,7 +192,7 @@ You can hide sprite if needed!
 
 ---
 
-# 🧪 Example Flow
+# Example Flow
 
 1. Drag ingredient → Container  
 2. Container checks task → TaskManager validates  
@@ -136,16 +201,16 @@ You can hide sprite if needed!
 
 ---
 
-# ⚠️ Common Mistakes
+# Common Mistakes
 
-- ❌ Animator AND script both changing sprite  
-- ❌ Missing animation event  
-- ❌ Wrong Task reference  
-- ❌ Overlapping active objects  
+- Animator AND script both changing sprite  
+- Missing animation event  
+- Wrong Task reference  
+- Overlapping active objects  
 
 ---
 
-# ✅ Tips for New Levels
+# Tips for New Levels
 
 - Keep tasks simple and ordered  
 - Separate logic from visuals  

@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadLevel1()
     {
-        Debug.Log("BUTTON WORKED");
+        Debug.Log("Level 1 clicked");
         SceneManager.LoadScene("ElephantToothpaste");
     }
 }

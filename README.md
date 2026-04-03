@@ -59,9 +59,10 @@ Handles drag-and-drop interactions.
 
 **What it does:**
 - Accepts ingredients/tools
-- Transforms tools (e.g., Spoon → SpoonSoap)
-- Triggers tasks
-- Resets tools
+- Validates tasks through TaskManager
+- Moves objects (snap behavior)
+- Optionally hides objects
+- Resets tools if needed
 
 **How to use:**
 - Attach to:
@@ -73,14 +74,31 @@ Handles drag-and-drop interactions.
 
 ---
 
-## 4. Interactive.cs
-Handles click-based interactions. Used in flask swirling and cup stirring.
+## 4. Draggable.cs
+Handles drag-and-drop behavior.
+
+**What it does:**
+- Allows objects to be dragged with the mouse
+- Detects container collisions on release
+- Returns objects if not accepted
+- Keeps objects in place if allowed
+
+## 5. Ingredient.cs
+Represents any usable object.
+
+**What it does:**
+- Stores current identity (`ingredientID`)
+- Stores base identity (for reset)
+- Controls whether object stays after use
+
+## 6. Interactive.cs
+Handles click-based interactions.
 
 **What it does:**
 - Validates task order
 - Plays animation
 - Completes task AFTER animation
-
+  
 **How to use:**
 - Attach to clickable objects
 - Assign:
@@ -90,7 +108,7 @@ Handles click-based interactions. Used in flask swirling and cup stirring.
 
 ---
 
-## 5. SpriteOnTaskComplete.cs
+## 7. SpriteOnTaskComplete.cs
 Handles visual changes from tasks.
 
 **What it does:**
@@ -131,6 +149,38 @@ SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
 ---
 
+# Drag and Drop Behavior
+**Ingredient Movement Rules:**
+- Ingredients `return` to their original position by `default`
+- Some ingredients (e.g., balloon) can stay after use
+
+Controlled by:
+
+`Ingredient.StayAfterUse`
+
+# Container Acceptance Logic
+
+When an ingredient is dropped:
+
+1. Detect overlapping container
+2. Ask container: “Do you accept this?”
+3. If accepted:
+    - Task is validated
+    - Object may snap to a position
+    - Object may stay
+4. If NOT accepted:
+    - Object returns to original position
+
+# Snap System
+
+Containers can move objects using:
+
+`moveToPoint` (Transform)
+
+This allows:
+- Balloon snapping to funnel
+- Objects aligning visually
+
 # Pause System
 
 The game supports pausing via:
@@ -169,7 +219,7 @@ You implemented:
 - video → win panel
 - lose panel on timeout
 
-# 🏁 Game Flow
+# Game Flow
 
 **Win Condition:**
 - Complete all tasks in order

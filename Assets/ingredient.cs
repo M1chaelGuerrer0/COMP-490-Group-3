@@ -8,6 +8,11 @@ public class Ingredient : MonoBehaviour
     // to remember original identity (Spoon, Syringe, etc.)
     public string baseIngredientID;
 
+    [SerializeField] private bool stayAfterUse = false;
+    public bool StayAfterUse => stayAfterUse;
+    // If true, object will remain at new position after a successful interaction
+    // If false, it always returns to its original position (default behavior)
+
     void Awake()
     {
         // If not set, default to starting ID

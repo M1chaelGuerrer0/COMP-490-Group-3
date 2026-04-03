@@ -41,9 +41,11 @@ public class Draggable : MonoBehaviour
         transform.position = mousePos + offset;
     }
 
-    // on release:
-    //     reset the sorting layer to default
-    //     check for overlapping containers and try to place the ingredient in one if found
+    // IMPORTANT:
+    // Object only stays if BOTH:
+    // 1. Container accepted it
+    // 2. Ingredient is marked StayAfterUse (e.g., balloon)
+    // Otherwise it returns to its original position
     void OnMouseUp() {
         // Check global interaction lock (e.g. during pause, video playback, etc.)
         if (TaskManager.IsInteractionLocked) return;
@@ -60,7 +62,7 @@ public class Draggable : MonoBehaviour
             0f
         );
 
-        bool foundContainer = false;
+        bool accepted = false;
 
         foreach (Collider2D hit in hits) {
             if (hit.gameObject == this.gameObject) {
@@ -68,22 +70,22 @@ public class Draggable : MonoBehaviour
             }
 
             Container container = hit.GetComponent<Container>();
-
             if (container != null)
             {
                 Debug.Log("Container detected: " + hit.name);
-                container.TryAccept(this.gameObject);
-                foundContainer = true;
-                break;
+                if (container.TryAccept(this.gameObject))
+                {
+                    accepted = true;
+                    break;
+                }
             }
         }
 
-        if (!foundContainer)
+        // reset back to original position if not accepted or if ingredient should not stay after use
+        if (!accepted || !GetComponent<Ingredient>().StayAfterUse)
         {
-            Debug.Log("No container detected.");
+            transform.position = originalPosition;
         }
-
-        transform.position = originalPosition;
     }
 
     // Resets the ingredient to its original position and sorting layer.
@@ -102,5 +104,11 @@ public class Draggable : MonoBehaviour
             isDragging = false;
             ResetState();
         }
+    }
+
+    // Allows external scripts (e.g. Container) to update the original position after moving the ingredient.
+    public void SetNewOriginalPosition(Vector3 newPosition)
+    {
+        originalPosition = newPosition;
     }
 }

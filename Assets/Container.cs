@@ -30,7 +30,11 @@ public class Container : MonoBehaviour
 
         // Task triggered when this ingredient is accepted
         [Header("Task (Optional)")]
-        public Task taskToComplete; 
+        public Task taskToComplete;
+
+        [Header("Optional Behavior")]
+        public Transform moveToPoint;   // for snap functions (e.g., balloon onto funnel)
+        public bool hideObject;          // for ingredients that should disappear after use
     }
 
     // List of accepted ingredients/tools and their corresponding actions
@@ -53,10 +57,10 @@ public class Container : MonoBehaviour
     /// <summary>
     /// Called when an object (ingredient/tool) is dropped onto this container.
     /// </summary>
-    public void TryAccept(GameObject obj)
+    public bool TryAccept(GameObject obj)
     {
         Ingredient ingredient = obj.GetComponent<Ingredient>();
-        if (ingredient == null) return;
+        if (ingredient == null) return false;
 
         foreach (IngredientAction action in acceptedIngredients)
         {
@@ -71,23 +75,42 @@ public class Container : MonoBehaviour
             if (!string.IsNullOrEmpty(action.newToolID))
             {
                 TransformTool(obj, ingredient, action);
-                return;
             }
 
             // --- CASE 2: NORMAL INTERACTION ---
             // Example: SpoonSoap → Flask (completes a task)
             if (!HandleTask(action))
-                return;
+                return false;
+
+            // MOVE OBJECT (snapping like a balloon onto a funnel)
+            if (action.moveToPoint != null)
+            {
+                obj.transform.position = action.moveToPoint.position;
+
+                // Update original position in Draggable so it doesn't snap back on next drag
+                Draggable drag = obj.GetComponent<Draggable>();
+                if (drag != null)
+                {
+                    drag.SetNewOriginalPosition(action.moveToPoint.position);
+                }
+            }
+
+            // HIDE OBJECT (balloon disappears)
+            if (action.hideObject)
+            {
+                obj.SetActive(false);
+            }
 
             // After successful task completion, reset tool if needed
             ResetToolIfNeeded(obj, ingredient);
-            return;
+            return true;
         }
 
         // --- WRONG INGREDIENT ---
         Debug.Log("Wrong ingredient added.");
         if (taskManager != null)
             taskManager.AddPenalty();
+        return false;
     }
 
     /// <summary>

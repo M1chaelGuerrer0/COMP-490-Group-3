@@ -37,8 +37,6 @@ Represents a single step in the experiment.
 - Attach `Task`
 - Reference it in other scripts
 
----
-
 ## 2. TaskManager.cs
 Controls task order and game progression.
 
@@ -51,8 +49,6 @@ Controls task order and game progression.
 **How to use:**
 - Add to one GameObject (e.g., `GameManager`)
 - Assign tasks in order in the inspector
-
----
 
 ## 3. Container.cs
 Handles drag-and-drop interactions.
@@ -71,8 +67,6 @@ Handles drag-and-drop interactions.
   - Sink
   - Ingredient sources (Soap)
 - Configure accepted ingredients in inspector
-
----
 
 ## 4. Draggable.cs
 Handles drag-and-drop behavior.
@@ -105,8 +99,6 @@ Handles click-based interactions.
   - Task
   - Animator
 - Add animation event at end → `OnAnimationFinished`
-
----
 
 ## 7. SpriteOnTaskComplete.cs
 Handles visual changes from tasks.
@@ -147,6 +139,7 @@ The game uses **scene reloading** to reset all state.
 ```csharp
 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 ```
+---
 
 # Drag and Drop Behavior
 **Ingredient Movement Rules:**
@@ -206,8 +199,7 @@ A global interaction lock prevents input during:
 
 ```csharp
 TaskManager.IsInteractionLocked
-
----
+```
 
 
 ---

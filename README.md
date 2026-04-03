@@ -146,8 +146,7 @@ The game uses **scene reloading** to reset all state.
 **Implementation:**
 ```csharp
 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
----
+```
 
 # Drag and Drop Behavior
 **Ingredient Movement Rules:**

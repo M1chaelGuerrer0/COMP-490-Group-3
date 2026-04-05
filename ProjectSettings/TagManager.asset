@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Flask
   - Cup
+  - Sink
+  - Cups
+  - RedDropper
+  - Tube
   layers:
   - Default
   - TransparentFX

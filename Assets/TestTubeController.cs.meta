@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 0642805303ddd914eac74a13f022ebb6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - emptyTubeSprite: {fileID: -2190877691369254216, guid: 6bc94db87e2eb564aad302f9c0a69d1c, type: 3}
+  - tube1Sprite: {fileID: 4688044141616263068, guid: 484dd0611b2fb2b48bcafcdb0aef1112, type: 3}
+  - tube2Sprite: {fileID: 4984116014230417001, guid: f84bac9c379dfba4cba6091a581529c5, type: 3}
+  - tube3Sprite: {fileID: 7308610007957814795, guid: 013434cc7271ab1488ed2564ef66a863, type: 3}
+  - tube4Sprite: {fileID: -3260112868863916465, guid: 66e610b62a6e2034a9dc39847b183c75, type: 3}
+  - tube5Sprite: {instanceID: 0}
+  - tube6Sprite: {instanceID: 0}
+  - tube7Sprite: {instanceID: 0}
+  - tube8Sprite: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

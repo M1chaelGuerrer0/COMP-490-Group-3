@@ -102,7 +102,10 @@ public class Container : MonoBehaviour
             }
 
             // After successful task completion, reset tool if needed
-            ResetToolIfNeeded(obj, ingredient);
+            if (action.taskToComplete != null)
+            {
+                ResetToolIfNeeded(obj, ingredient);
+            }
             return true;
         }
 

@@ -19,6 +19,18 @@ public class ExpDB : MonoBehaviour
     {
         CreateDB();
     }
+
+    // Ensures that only one instance of the database exists across scenes
+    void Awake()
+    {
+        if (FindObjectsByType<ExpDB>(FindObjectsSortMode.None).Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
     
     //Creating the database and using the name for the file that we previously gave and creating the table in case that the file had not been made before
     public void CreateDB()

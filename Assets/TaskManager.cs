@@ -74,17 +74,6 @@ public class TaskManager : MonoBehaviour
 
         if (pausePanel != null)
             pausePanel.SetActive(false);
-
-        // debug see who is logged in and their progress
-        ExpDB db = FindFirstObjectByType<ExpDB>();
-        if (db != null)
-        {
-            Debug.Log("Current progress: " + db.GetProgress());
-        }
-        else
-        {
-            Debug.Log("ExpDB not found in scene.");
-        }
     }
 
     void Update()

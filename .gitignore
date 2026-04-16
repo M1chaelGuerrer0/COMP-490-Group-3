@@ -110,3 +110,8 @@ Packages/packages-lock.json
 
 # Unity recovery
 [Aa]ssets/_Recovery/
+
+# SQLite database
+*.db
+*.db-journal
+*.sqlite

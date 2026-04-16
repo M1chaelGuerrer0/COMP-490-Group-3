@@ -14,6 +14,9 @@ public class TaskManager : MonoBehaviour
     // Static flag to globally lock interactions (e.g. during video playback, pause, etc.)
     public static bool IsInteractionLocked = false;
 
+    // experiment index number to keep track of which experiment the user is on for database purposes
+    [SerializeField] private int experimentIndex;
+
     // =========================
     // TASK ORDER
     // =========================
@@ -71,6 +74,17 @@ public class TaskManager : MonoBehaviour
 
         if (pausePanel != null)
             pausePanel.SetActive(false);
+
+        // debug see who is logged in and their progress
+        ExpDB db = FindFirstObjectByType<ExpDB>();
+        if (db != null)
+        {
+            Debug.Log("Current progress: " + db.GetProgress());
+        }
+        else
+        {
+            Debug.Log("ExpDB not found in scene.");
+        }
     }
 
     void Update()
@@ -227,6 +241,24 @@ public class TaskManager : MonoBehaviour
         IsInteractionLocked = true; // Lock interactions globally
 
         PlayReaction();
+
+        // send completion info to database
+        ExpDB db = FindFirstObjectByType<ExpDB>();
+
+        if (db != null)
+        {
+            int currentProgress = db.GetProgress();
+
+            if (currentProgress == experimentIndex)
+            {
+                db.UpdateProgress(currentProgress + 1);
+                Debug.Log("Progress advanced!");
+            }
+            else
+            {
+                Debug.Log("Experiment already completed. No progress change.");
+            }
+        }
     }
 
     private void HandleFailure()

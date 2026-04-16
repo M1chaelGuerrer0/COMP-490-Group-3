@@ -27,7 +27,7 @@ public class login_script : MonoBehaviour
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = @"CREATE TABLE IF NOT EXISTS Accounts (UserID INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(30) NOT NULL, username VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL, level INT);";
+                command.CommandText = @"CREATE TABLE IF NOT EXISTS Accounts (UserID INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(30) NOT NULL, username VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL, experiment INT);";
                 command.ExecuteNonQuery();
             }
             connection.Close();
@@ -57,7 +57,10 @@ public class login_script : MonoBehaviour
                 if (userCount > 0)
                 {
                     //result.text = "Login Successful!";
-                    SceneManager.LoadScene("LevelSelection");
+                    UserSession.CurrentUsername = username;
+                    Debug.Log(UserSession.CurrentUsername);
+                    // goto level selection
+                    SceneManager.LoadScene("MainMenu");
                 }
                 else
                 {

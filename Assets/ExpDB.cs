@@ -18,8 +18,6 @@ public class ExpDB : MonoBehaviour
     void Start()
     {
         CreateDB();
-
-        
     }
     
     //Creating the database and using the name for the file that we previously gave and creating the table in case that the file had not been made before
@@ -31,7 +29,7 @@ public class ExpDB : MonoBehaviour
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = @"CREATE TABLE IF NOT EXISTS Accounts (UserID INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(30) NOT NULL, username VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL, level INT);";
+                command.CommandText = @"CREATE TABLE IF NOT EXISTS Accounts (UserID INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(30) NOT NULL, username VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL, experiment INT);";
                 command.ExecuteNonQuery();
             }
             connection.Close();
@@ -63,11 +61,11 @@ public class ExpDB : MonoBehaviour
 
             using (var command = connection.CreateCommand())
             {
-                command.CommandText = "INSERT INTO Accounts (email, username, password, level) VALUES (@email, @username, @password, @level)";
+                command.CommandText = "INSERT INTO Accounts (email, username, password, experiment) VALUES (@email, @username, @password, @experiment)";
                 command.Parameters.Add(new SqliteParameter("@email", email));
                 command.Parameters.Add(new SqliteParameter("@username", username));
                 command.Parameters.Add(new SqliteParameter("@password", password));
-                command.Parameters.Add(new SqliteParameter("@level", value));
+                command.Parameters.Add(new SqliteParameter("@experiment", value));
 
                 command.ExecuteNonQuery();
             }
@@ -110,4 +108,56 @@ public class ExpDB : MonoBehaviour
         SceneManager.LoadScene("Login");
     }
 
+
+    // updates experiment completion progress
+    public void UpdateProgress(int newExperiment)
+    {
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "UPDATE Accounts SET experiment = @experiment WHERE username = @username";
+
+                command.Parameters.Add(new SqliteParameter("@experiment", newExperiment));
+                command.Parameters.Add(new SqliteParameter("@username", UserSession.CurrentUsername));
+
+                command.ExecuteNonQuery();
+            }
+
+            connection.Close();
+        }
+
+        Debug.Log("Progress updated to: " + newExperiment);
+    }
+
+    // gets experiment completion progress
+    public int GetProgress()
+    {
+        int experiment = 1;
+
+        using (var connection = new SqliteConnection(dbName))
+        {
+            connection.Open();
+
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT experiment FROM Accounts WHERE username = @username";
+                command.Parameters.Add(new SqliteParameter("@username", UserSession.CurrentUsername));
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        experiment = reader.GetInt32(0);
+                    }
+                }
+            }
+
+            connection.Close();
+        }
+
+        return experiment;
+    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-// could refactor
+// toggles which panel to open in level selector
 public class LevelSelection : MonoBehaviour
 {
     [SerializeField] private GameObject level1Panel;

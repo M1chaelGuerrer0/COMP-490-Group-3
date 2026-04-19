@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
+// Handles the input values in Register
 public class RegisterUI : MonoBehaviour
 {
     public InputField emailInput;

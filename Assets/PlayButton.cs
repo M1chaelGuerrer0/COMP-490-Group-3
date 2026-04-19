@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+// changes the text of the play button in main menu based on if user is a "Guest"
 public class PlayButtonLabel : MonoBehaviour
 {
     private TMP_Text label;

@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+// used for the experiment buttons in level selector.
+// checks user's progress and locks respecitive experiments.
 public class ExperimentButton : MonoBehaviour
 {
     [SerializeField] private int experimentIndex;

@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level3/LavaLamp.unity
     guid: b3ecd58a078712245b134ab5c30579d0
+  - enabled: 1
+    path: Assets/Scenes/Level1/AbsorptionPower.unity
+    guid: 09d6b50bb02f3ab4fad2ab3aeff97cbb
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

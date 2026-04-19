@@ -4150,7 +4150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80211405f5f6e04babb362733210048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaskManager
-  experimentIndex: 0
+  experimentIndex: 7
   orderedTasks:
   - {fileID: 222512299}
   - {fileID: 2056436616}

@@ -26,6 +26,6 @@ public class LevelSelection : MonoBehaviour
     public void OpenLevel4()
     {
         Debug.Log("Level 4 opened");
-        level3Panel.SetActive(true);
+        level4Panel.SetActive(true);
     }
 }

@@ -6,10 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class ExpDB : MonoBehaviour
 {
-    // Declaring all of the variables and inputs that the user enters
-    public InputField emailInput;
-    public InputField passwordInput;
-    public InputField usernameInput;
     public int value = 1;
     public Text output;
 
@@ -49,24 +45,8 @@ public class ExpDB : MonoBehaviour
     }
 
     //Adding a user into the table with the information that the user enters and chacking to see that the user doesn't already exist
-    public void AddUser()
+    public void AddUser(string username, string email, string password)
     {
-        string username = usernameInput.text;
-        string email = emailInput.text;
-        string password = passwordInput.text;
-
-        if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) )
-        {
-            output.text = "All fields are required.";
-            return;
-        }
-
-        if(UserExists(username))
-        {
-            output.text = "User Already Exists.";
-            return;
-        }
-
         using (var connection = new SqliteConnection(dbName))
         {
             connection.Open();
@@ -81,10 +61,12 @@ public class ExpDB : MonoBehaviour
 
                 command.ExecuteNonQuery();
             }
+
             connection.Close();
-            SceneManager.LoadScene("LevelSelection");
-            //output.text = "User Registered Successfully!";
         }
+
+        UserSession.CurrentUsername = username;
+        SceneManager.LoadScene("MainMenu");
     }
 
     //Checks to see if the information entered matches with an existing account

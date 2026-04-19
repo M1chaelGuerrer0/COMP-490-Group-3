@@ -1,4 +1,4 @@
 public static class UserSession
 {
-    public static string CurrentUsername;
+    public static string CurrentUsername = "Guest";
 }

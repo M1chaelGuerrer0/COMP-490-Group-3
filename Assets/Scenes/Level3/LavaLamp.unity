@@ -854,7 +854,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734747}
         m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
         m_MethodName: ResumeGame
         m_Mode: 1
@@ -1289,7 +1289,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734747}
         m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
         m_MethodName: TogglePause
         m_Mode: 1
@@ -2732,7 +2732,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734749}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -3801,7 +3801,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734747}
         m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
@@ -4071,7 +4071,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734747}
         m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
@@ -4131,6 +4131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1229734748}
   - component: {fileID: 1229734747}
+  - component: {fileID: 1229734749}
   m_Layer: 0
   m_Name: TaskManager
   m_TagString: Untagged
@@ -4165,9 +4166,9 @@ MonoBehaviour:
   penaltyTextDuration: 2
   reaction: {fileID: 32900000, guid: 973fb8dc2e313fe458cacca494d1f6e4, type: 3}
   videoScreen: {fileID: 1308841477}
-  winPanel: {fileID: 0}
-  losePanel: {fileID: 0}
-  pausePanel: {fileID: 0}
+  winPanel: {fileID: 428421517}
+  losePanel: {fileID: 1937279545}
+  pausePanel: {fileID: 18375626}
 --- !u!4 &1229734748
 Transform:
   m_ObjectHideFlags: 0
@@ -4189,6 +4190,18 @@ Transform:
   - {fileID: 2104961372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1229734749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229734746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2eb5b82992e3e4ca801ea8d97dfad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
 --- !u!1 &1308841475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4646,7 +4659,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734749}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
@@ -5566,7 +5579,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734747}
         m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
@@ -6517,7 +6530,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1229734749}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5

@@ -33,6 +33,10 @@ public class SpriteOnTaskComplete : MonoBehaviour {
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer == null) {
+            Debug.LogError($"{gameObject.name} is missing a SpriteRenderer!");
+        }
     }
 
     // Subscribe to task completion events on start
@@ -60,11 +64,18 @@ public class SpriteOnTaskComplete : MonoBehaviour {
     /// </summary>
     private void ApplySprite(TaskSpriteMapping mapping)
     {
-        if (mapping.sprite == null)
-            return;
+        if (spriteRenderer == null)
+        return;
 
         spriteRenderer.sprite = mapping.sprite;
 
-        Debug.Log($"{gameObject.name} → Sprite changed to: {mapping.sprite.name}");
+        if (mapping.sprite != null)
+        {
+            Debug.Log($"{gameObject.name} → Sprite changed to: {mapping.sprite.name}");
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name} → Sprite cleared (null)");
+        }
     }
 }

@@ -45,6 +45,11 @@ public class Interactive : MonoBehaviour {
             return;
 
         PlayAnimation();
+
+        if (taskToComplete != null) {
+            taskToComplete.CompleteTask();
+        }
+        
         hasInteracted = true;
     }
 

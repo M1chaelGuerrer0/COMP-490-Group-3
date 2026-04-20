@@ -5,14 +5,17 @@ public class Draggable : MonoBehaviour
 {
     private Vector3 offset;
     private Vector3 originalPosition;
-    private SpriteRenderer spriteRenderer;
     private bool isDragging = false;
 
     // Initialize references
     void Start()
     {
         originalPosition = transform.position;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (GetComponentsInChildren<SpriteRenderer>().Length == 0)
+        {
+            Debug.LogWarning($"{gameObject.name} has Draggable but no SpriteRenderer anywhere.");
+        }
     }
 
     // on click:
@@ -25,7 +28,11 @@ public class Draggable : MonoBehaviour
 
         isDragging = true;
 
-        spriteRenderer.sortingLayerName = "Front";
+        foreach (var r in GetComponentsInChildren<SpriteRenderer>())
+        {
+            r.sortingLayerName = "Front";
+        }
+        
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         offset = transform.position - mousePos;
     }
@@ -51,8 +58,12 @@ public class Draggable : MonoBehaviour
         if (TaskManager.IsInteractionLocked) return;
         
         isDragging = false;
-
-        spriteRenderer.sortingLayerName = "Default";
+    
+        foreach (var r in GetComponentsInChildren<SpriteRenderer>())
+        {
+            r.sortingLayerName = "Default";
+        }
+        
 
         Collider2D myCollider = GetComponent<Collider2D>();
 
@@ -92,7 +103,12 @@ public class Draggable : MonoBehaviour
     public void ResetState()
     {
         isDragging = false;
-        spriteRenderer.sortingLayerName = "Default";
+
+        foreach (var r in GetComponentsInChildren<SpriteRenderer>())
+        {
+            r.sortingLayerName = "Default";
+        }
+
         transform.position = originalPosition;
     }
 

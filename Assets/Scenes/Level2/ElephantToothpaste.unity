@@ -407,12 +407,14 @@ MonoBehaviour:
     taskToComplete: {fileID: 0}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: SpoonSoap
     newToolID: SpoonWater
     newTool: {fileID: -3387661014318127682, guid: 4346c2fb55e44df4999d8ff27ec66aaf, type: 3}
     taskToComplete: {fileID: 0}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!61 &41340606
 BoxCollider2D:
@@ -715,12 +717,14 @@ MonoBehaviour:
     taskToComplete: {fileID: 1080774080}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: SpoonWater
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 97210170}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 1
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!61 &88389060
 BoxCollider2D:
@@ -3538,12 +3542,14 @@ MonoBehaviour:
     taskToComplete: {fileID: 0}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: SpoonWater
     newToolID: SpoonSoap
     newTool: {fileID: 8393616588390936079, guid: 17b2b8c56d19fc348b78484506889e3c, type: 3}
     taskToComplete: {fileID: 0}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: 0}
 --- !u!1 &1028218392
 GameObject:
@@ -5924,18 +5930,21 @@ MonoBehaviour:
     taskToComplete: {fileID: 1346425683}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: SpoonSoap
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 1285523660}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 1
   - ingredientID: FinalMix
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 199616342}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!60 &1881755398
 PolygonCollider2D:

@@ -35,6 +35,8 @@ public class Container : MonoBehaviour
         [Header("Optional Behavior")]
         public Transform moveToPoint;   // for snap functions (e.g., balloon onto funnel)
         public bool hideObject;          // for ingredients that should disappear after use
+
+        public bool resetToolAfterUse; // a toggle for resetting tools after use
     }
 
     // List of accepted ingredients/tools and their corresponding actions
@@ -102,7 +104,7 @@ public class Container : MonoBehaviour
             }
 
             // After successful task completion, reset tool if needed
-            if (action.taskToComplete != null)
+            if (action.resetToolAfterUse)
             {
                 ResetToolIfNeeded(obj, ingredient);
             }

@@ -1,112 +1,72 @@
 using UnityEngine;
 
-/// <summary>
-/// Handles player interaction via mouse clicks.
-/// 
-/// Responsibilities:
-/// - Validate if interaction is allowed (task order)
-/// - Trigger animation
-/// - Complete task AFTER animation finishes (via Animation Event)
-/// 
-/// Does NOT handle:
-/// - Task ordering logic (TaskManager)
-/// - Visual state changes (SpriteOnTaskComplete)
-/// </summary>
 public class Interactive : MonoBehaviour {
 
-    // Task that will be completed after animation finishes
-    [Header("Task")]
-    [SerializeField] private Task taskToComplete;
+    [System.Serializable]
+    public class InteractionAction
+    {
+        public Task taskToComplete;
+        public string animationTriggerName;
+    }
 
-    // Animator trigger used to start the interaction animation
+    [Header("Interactions")]
+    [SerializeField] private InteractionAction[] actions;
+
     [Header("Animation")]
     [SerializeField] private Animator targetAnimator;
-    [SerializeField] private string animationTriggerName = "Play";
 
-    // Prevents repeated triggering of the same interaction
     private TaskManager taskManager;
-    private bool hasInteracted = false;
 
+    private Draggable draggable;
     void Awake()
     {
         taskManager = FindFirstObjectByType<TaskManager>();
+        draggable = GetComponent<Draggable>();
+
     }
 
-    void OnMouseDown()
+    void OnMouseUp()
     {
-        // Check global interaction lock (e.g. during pause, video playback, etc.)
-        if (TaskManager.IsInteractionLocked) 
-        {
-            if (taskManager == null) return;
-            return;
-        }
+        if (TaskManager.IsInteractionLocked) return;
 
-        if (!CanInteract())
+        Draggable draggable = GetComponent<Draggable>();
+        if (draggable != null && draggable.WasDragged)
             return;
 
-        PlayAnimation();
+        InteractionAction validAction = null;
 
-        if (taskToComplete != null) {
-            taskToComplete.CompleteTask();
-        }
-        
-        hasInteracted = true;
-    }
-
-    // =========================
-    // INTERACTION FLOW
-    // =========================
-
-    /// <summary>
-    /// Determines whether this interaction is allowed.
-    /// </summary>
-    private bool CanInteract()
-    {
-        // Prevent spam clicking
-        if (hasInteracted)
-            return false;
-
-        // Validate task order
-        if (taskManager != null && taskToComplete != null)
+        // 🔍 Step 1: Find the correct task WITHOUT triggering penalties
+        foreach (var action in actions)
         {
-            bool canProceed = taskManager.TryCompleteTask(taskToComplete);
+            if (action.taskToComplete == null)
+                continue;
 
-            if (!canProceed)
+            // Only check match, don't call TryCompleteTask yet
+            if (taskManager != null && action.taskToComplete == taskManager.GetCurrentTask())
             {
-                Debug.Log("Wrong step, cannot interact yet.");
-                return false;
+                validAction = action;
+                break;
             }
         }
 
-        return true;
-    }
-
-    /// <summary>
-    /// Triggers the animation for this interaction.
-    /// </summary>
-    private void PlayAnimation()
-    {
-        if (targetAnimator != null)
+        //  No valid action → wrong click
+        if (validAction == null)
         {
-            targetAnimator.SetTrigger(animationTriggerName);
+            Debug.Log("Wrong interaction.");
+            taskManager.AddPenalty(); // optional
+            return;
         }
-    }
 
-    // =========================
-    // ANIMATION EVENT
-    // =========================
+        //  Step 2: Now execute ONLY the correct one
+        bool canProceed = taskManager.TryCompleteTask(validAction.taskToComplete);
 
-    /// <summary>
-    /// Called at the end of the animation via Animation Event.
-    /// Completes the associated task.
-    /// </summary>
-    public void OnAnimationFinished()
-    {
-        Debug.Log("Animation finished → completing task.");
+        if (!canProceed) return;
 
-        if (taskToComplete != null)
+        if (targetAnimator != null && !string.IsNullOrEmpty(validAction.animationTriggerName))
         {
-            taskToComplete.CompleteTask();
+            targetAnimator.SetTrigger(validAction.animationTriggerName);
         }
+
+        validAction.taskToComplete.CompleteTask();
     }
 }

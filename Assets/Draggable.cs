@@ -6,6 +6,10 @@ public class Draggable : MonoBehaviour
     private Vector3 offset;
     private Vector3 originalPosition;
     private bool isDragging = false;
+    private Vector3 mouseDownPosition;
+    private bool hasMoved = false;
+
+    public bool WasDragged => hasMoved;
 
     // Initialize references
     void Start()
@@ -27,6 +31,8 @@ public class Draggable : MonoBehaviour
         if (TaskManager.IsInteractionLocked) return;
 
         isDragging = true;
+        hasMoved = false;
+        mouseDownPosition = Input.mousePosition;
 
         foreach (var r in GetComponentsInChildren<SpriteRenderer>())
         {
@@ -41,11 +47,15 @@ public class Draggable : MonoBehaviour
     //     update the object's position to follow the mouse, accounting for the offset
     void OnMouseDrag()
     {
-        // Check global interaction lock (e.g. during pause, video playback, etc.)
         if (TaskManager.IsInteractionLocked) return;
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = mousePos + offset;
+
+        if (Vector3.Distance(Input.mousePosition, mouseDownPosition) > 5f)
+        {
+            hasMoved = true;
+        }
     }
 
     // IMPORTANT:

@@ -377,4 +377,12 @@ public class TaskManager : MonoBehaviour
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public Task GetCurrentTask()
+    {
+        if (currentTaskIndex >= orderedTasks.Count)
+            return null;
+
+        return orderedTasks[currentTaskIndex];
+    }
 }

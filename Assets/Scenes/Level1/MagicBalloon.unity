@@ -818,12 +818,14 @@ MonoBehaviour:
     taskToComplete: {fileID: 1258696602}
     moveToPoint: {fileID: 1118533456}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: baking_powder
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 324086467}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: 0}
 --- !u!61 &283555712
 BoxCollider2D:
@@ -3526,9 +3528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5849c6c37302cf5449030cff0f33aa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactive
-  taskToComplete: {fileID: 790702617}
+  actions:
+  - taskToComplete: {fileID: 790702617}
+    animationTriggerName: 
   targetAnimator: {fileID: 0}
-  animationTriggerName: 
 --- !u!114 &1334201196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3565,12 +3568,14 @@ MonoBehaviour:
     taskToComplete: {fileID: 1775351255}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: balloon
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 173618636}
     moveToPoint: {fileID: 0}
     hideObject: 1
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: 0}
 --- !u!61 &1334201198
 BoxCollider2D:

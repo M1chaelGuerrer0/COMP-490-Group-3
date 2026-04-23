@@ -811,9 +811,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5849c6c37302cf5449030cff0f33aa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickableTask
-  taskToComplete: {fileID: 33211295}
+  actions:
+  - taskToComplete: {fileID: 33211295}
+    animationTriggerName: Play
   targetAnimator: {fileID: 88389064}
-  animationTriggerName: Play
 --- !u!95 &88389064
 Animator:
   serializedVersion: 7
@@ -3383,7 +3384,6 @@ GameObject:
   - component: {fileID: 969728041}
   - component: {fileID: 969728040}
   - component: {fileID: 969728042}
-  - component: {fileID: 969728044}
   - component: {fileID: 969728045}
   m_Layer: 0
   m_Name: soap
@@ -3511,18 +3511,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 13, y: 26}
   m_EdgeRadius: 0
---- !u!114 &969728044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969728039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 419f36dbc7cce3344905be7591809d7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Draggable
 --- !u!114 &969728045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6224,9 +6212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5849c6c37302cf5449030cff0f33aa9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  taskToComplete: {fileID: 1073281397}
+  actions:
+  - taskToComplete: {fileID: 1073281397}
+    animationTriggerName: Play
   targetAnimator: {fileID: 1881755399}
-  animationTriggerName: Play
 --- !u!114 &1881755401
 MonoBehaviour:
   m_ObjectHideFlags: 0

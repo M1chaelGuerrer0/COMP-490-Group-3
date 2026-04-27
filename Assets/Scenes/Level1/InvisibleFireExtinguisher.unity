@@ -5929,7 +5929,7 @@ MonoBehaviour:
   - {fileID: 622968102}
   - {fileID: 146515194}
   - {fileID: 1206087572}
-  timeLimit: 180
+  timeLimit: 120
   penaltyTime: 30
   timerText: {fileID: 1428476191}
   penaltyText: {fileID: 571672926}

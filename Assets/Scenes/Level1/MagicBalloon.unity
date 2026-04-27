@@ -2019,7 +2019,7 @@ MonoBehaviour:
   - {fileID: 324086467}
   - {fileID: 173618636}
   - {fileID: 790702617}
-  timeLimit: 240
+  timeLimit: 120
   penaltyTime: 30
   timerText: {fileID: 1832899723}
   penaltyText: {fileID: 1065175573}

@@ -298,12 +298,14 @@ MonoBehaviour:
     taskToComplete: {fileID: 346721890}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: RedDye
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 1000176220}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!114 &105712523
 MonoBehaviour:
@@ -2494,7 +2496,7 @@ MonoBehaviour:
   - {fileID: 1000176220}
   - {fileID: 1972399815}
   - {fileID: 1227718210}
-  timeLimit: 240
+  timeLimit: 120
   penaltyTime: 30
   timerText: {fileID: 785195824}
   penaltyText: {fileID: 795454271}
@@ -4106,12 +4108,14 @@ MonoBehaviour:
     taskToComplete: {fileID: 1972399815}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: RedWater
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 1227718210}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!61 &1712061010
 BoxCollider2D:
@@ -4270,6 +4274,7 @@ MonoBehaviour:
     taskToComplete: {fileID: 0}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!61 &1759006599
 BoxCollider2D:

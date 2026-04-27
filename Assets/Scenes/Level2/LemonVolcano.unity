@@ -688,7 +688,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.66, y: -2.85, z: 0}
-  m_LocalScale: {x: 0.21196209, y: 0.2729054, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2286,7 +2286,7 @@ Transform:
   m_GameObject: {fileID: 550397032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1568, y: -2.3348, z: 0}
+  m_LocalPosition: {x: 3.89, y: -0.81, z: 0}
   m_LocalScale: {x: 0.8253935, y: 0.6822877, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2590,7 +2590,7 @@ Transform:
   m_GameObject: {fileID: 787336279}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9129, y: -0.7142, z: 0}
+  m_LocalPosition: {x: 4.43, y: -3.11, z: 0}
   m_LocalScale: {x: 0.33103094, y: 0.38067967, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3129,7 +3129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80211405f5f6e04babb362733210048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  experimentIndex: 1
+  experimentIndex: 5
   orderedTasks:
   - {fileID: 1214380868}
   - {fileID: 1358848031}
@@ -3137,7 +3137,7 @@ MonoBehaviour:
   - {fileID: 109403095}
   - {fileID: 1979337669}
   - {fileID: 901097048}
-  timeLimit: 150
+  timeLimit: 180
   penaltyTime: 30
   timerText: {fileID: 55728546}
   penaltyText: {fileID: 233731736}
@@ -4251,7 +4251,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!1 &1412920772
 GameObject:
@@ -4544,7 +4544,7 @@ Transform:
   m_GameObject: {fileID: 1438357549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3912, y: -2.756, z: 0}
+  m_LocalPosition: {x: 0.02, y: -2.1, z: 0}
   m_LocalScale: {x: 1.1342, y: 1.0863, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5911,24 +5911,24 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lemon Volcano
+  m_text: '1. Cut the top part of the lemon
 
 
+    2. Cut the bottom part of the lemon
 
-    1. Cut the top part of the lemon
 
-    2. Cut the
-    bottom part of the lemon
+    3.
+    Scoop some of the lemon out with the spoon
 
-    3. Scoop some of the lemon out with the spoon
 
-    4.
-    Add red food coloring
+    4. Add red food coloring
 
-    5. Add baking soda
 
-    6. Poke the lemon with the
-    knife'
+    5.
+    Add baking soda
+
+
+    6. Poke the lemon with the knife'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

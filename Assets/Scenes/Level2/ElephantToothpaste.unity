@@ -4535,7 +4535,7 @@ MonoBehaviour:
   - {fileID: 97210170}
   - {fileID: 33211295}
   - {fileID: 199616342}
-  timeLimit: 240
+  timeLimit: 180
   penaltyTime: 30
   timerText: {fileID: 70023224}
   penaltyText: {fileID: 409758553}
@@ -5091,22 +5091,22 @@ MonoBehaviour:
 
 
     2.
-    Grab 1 tablespoon of dish soap with spoon and pour into flask.
+    Grab 1 tablespoon of dish soap with the spoon and pour into the flask.
 
 
-    3. Swirl
-    the flask for 2 seconds.
+    3.
+    Swirl the flask for 2 seconds.
 
 
-    4. Add the sachet of dry yeast to the empty cup.
+    4. Add the sachet of dry yeast to the empty
+    cup.
 
 
-    5.
-    Add 4 tablespoons of water to the cup.
+    5. Add 4 tablespoons of water to the cup.
 
 
-    6. Stir the cup and mix it for 30
-    seconds.
+    6. Stir the cup and
+    mix it for 30 seconds.
 
 
     7. Pour the cup mixture into the flask.'

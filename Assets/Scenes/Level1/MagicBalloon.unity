@@ -1005,9 +1005,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1. Pour 15mL of vinegar into the testing tube.\r\n2. Connect the balloon
-    to the funnel.\r\n3. Add 1 scoop of baking soda into the balloon.\r\n4. Connect
-    the balloon to the test tube. \r\n5. Flip the balloon so that the baking soda
+  m_text: "1. Pour 15mL of vinegar into the testing tube.\n\r\n2. Connect the balloon
+    to the funnel.\r\n\n3. Add 1 scoop of baking soda into the balloon.\r\n\n4. Connect
+    the balloon to the test tube. \r\n\n5. Flip the balloon so that the baking soda
     falls in the test tube.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

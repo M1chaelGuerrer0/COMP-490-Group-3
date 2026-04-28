@@ -52,42 +52,47 @@ public class Interactive : MonoBehaviour {
         taskManager = FindFirstObjectByType<TaskManager>();
     }
 
+    // on mouse up to prevent issues with draggable
     void OnMouseUp()
     {
-        // Check global interaction lock (e.g. during pause, video playback, etc.)
         if (TaskManager.IsInteractionLocked) return;
 
-        // Prevent interaction if this object was dragged instead of clicked
         Draggable draggable = GetComponent<Draggable>();
         if (draggable != null && draggable.WasDragged)
             return;
-
-        // =========================
-        // FIND VALID INTERACTION
-        // =========================
 
         foreach (var action in actions)
         {
             if (action.taskToComplete == null)
                 continue;
 
-            // Only select the action that matches the CURRENT task
             if (taskManager.GetCurrentTask() != action.taskToComplete)
                 continue;
 
-            // Store valid action for animation event
             currentAction = action;
 
-            // =========================
-            // PLAY ANIMATION
-            // =========================
+            // Decide behavior based on animation
+            bool hasAnimation =
+                targetAnimator != null &&
+                !string.IsNullOrEmpty(action.animationTriggerName);
 
-            if (targetAnimator != null && !string.IsNullOrEmpty(action.animationTriggerName))
+            if (hasAnimation)
             {
                 targetAnimator.SetTrigger(action.animationTriggerName);
             }
+            else
+            {
+                Debug.Log("No animation → completing task immediately.");
 
-            return; // Only one interaction per click
+                bool canProceed = taskManager.TryCompleteTask(action.taskToComplete);
+
+                if (canProceed)
+                {
+                    action.taskToComplete.CompleteTask();
+                }
+            }
+
+            return;
         }
 
         Debug.Log("Wrong interaction.");

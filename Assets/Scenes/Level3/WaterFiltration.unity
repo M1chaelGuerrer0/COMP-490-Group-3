@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 67763097}
   - component: {fileID: 67763096}
   m_Layer: 0
-  m_Name: Sand Container_0
+  m_Name: sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1607,7 +1607,7 @@ GameObject:
   - component: {fileID: 423295677}
   - component: {fileID: 423295676}
   m_Layer: 0
-  m_Name: Sink_0
+  m_Name: sink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2267,7 +2267,7 @@ GameObject:
   - component: {fileID: 634937272}
   - component: {fileID: 634937271}
   m_Layer: 0
-  m_Name: Cotton Container_0
+  m_Name: cotten
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2433,7 +2433,7 @@ GameObject:
   - component: {fileID: 655023988}
   - component: {fileID: 655023987}
   m_Layer: 0
-  m_Name: Gravel_0
+  m_Name: gravel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2913,7 +2913,7 @@ GameObject:
   - component: {fileID: 755552531}
   - component: {fileID: 755552530}
   m_Layer: 0
-  m_Name: lab_0
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3006,7 +3006,7 @@ GameObject:
   - component: {fileID: 819162738}
   - component: {fileID: 819162737}
   m_Layer: 0
-  m_Name: Charcoal Container_0
+  m_Name: charcoal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3559,7 +3559,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1. Add a small handfull of Cotton to the container.
+  m_text: '1. Add a small handful of Cotton to the container.
 
 
     2. Add a layer
@@ -4464,7 +4464,7 @@ GameObject:
   - component: {fileID: 1426013299}
   - component: {fileID: 1426013298}
   m_Layer: 0
-  m_Name: Stone Container_0
+  m_Name: stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5376,7 +5376,7 @@ GameObject:
   - component: {fileID: 1918887177}
   - component: {fileID: 1918887176}
   m_Layer: 0
-  m_Name: dirty water bottle_0
+  m_Name: ditryWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5760,7 +5760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80211405f5f6e04babb362733210048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaskManager
-  experimentIndex: 8
+  experimentIndex: 9
   orderedTasks:
   - {fileID: 1120646883}
   - {fileID: 1977916321}
@@ -5769,11 +5769,11 @@ MonoBehaviour:
   - {fileID: 679732075}
   - {fileID: 35767180}
   timeLimit: 240
-  penaltyTime: 30
+  penaltyTime: 45
   timerText: {fileID: 2010604656}
   penaltyText: {fileID: 656947568}
   penaltyTextDuration: 2
-  reaction: {fileID: 32900000, guid: 07fbb1592f2abca479d630f35d89f213, type: 3}
+  reaction: {fileID: 32900000, guid: 055e27a7f29228941bd143726a95f1b2, type: 3}
   videoScreen: {fileID: 557358632}
   winPanel: {fileID: 1970024426}
   losePanel: {fileID: 406931172}
@@ -6005,7 +6005,7 @@ GameObject:
   - component: {fileID: 2068704960}
   - component: {fileID: 2068704959}
   m_Layer: 0
-  m_Name: Water filtration  Empty_0
+  m_Name: waterFiltration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6055,36 +6055,42 @@ MonoBehaviour:
     taskToComplete: {fileID: 1120646883}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: Sand
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 1977916321}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: Charcoal
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 2044013246}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: Gravel
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 472761148}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: Stone
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 679732075}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: DirtyWater
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 35767180}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: 0}
 --- !u!61 &2068704961
 BoxCollider2D:

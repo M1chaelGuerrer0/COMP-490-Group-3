@@ -5539,7 +5539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80211405f5f6e04babb362733210048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  experimentIndex: 1
+  experimentIndex: 7
   orderedTasks:
   - {fileID: 335097422}
   - {fileID: 1735489868}
@@ -5549,7 +5549,7 @@ MonoBehaviour:
   - {fileID: 90390138}
   - {fileID: 336725284}
   timeLimit: 240
-  penaltyTime: 30
+  penaltyTime: 45
   timerText: {fileID: 1204649546}
   penaltyText: {fileID: 1491883226}
   penaltyTextDuration: 2

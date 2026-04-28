@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 127312330}
   - component: {fileID: 127312332}
   m_Layer: 0
-  m_Name: Red Pipette container_0
+  m_Name: redFoodColor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1054,7 +1054,7 @@ GameObject:
   - component: {fileID: 168081584}
   - component: {fileID: 168081586}
   m_Layer: 0
-  m_Name: Baking Soda_0
+  m_Name: bakingSoda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1353,7 +1353,7 @@ GameObject:
   - component: {fileID: 209630157}
   - component: {fileID: 209630159}
   m_Layer: 0
-  m_Name: Citric acid_0
+  m_Name: citircAcid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1682,7 +1682,7 @@ GameObject:
   - component: {fileID: 417812515}
   - component: {fileID: 417812514}
   m_Layer: 0
-  m_Name: Oil (1)_0
+  m_Name: oil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1927,7 +1927,7 @@ GameObject:
   - component: {fileID: 436868685}
   - component: {fileID: 436868684}
   m_Layer: 0
-  m_Name: Yellow Pipette container_0
+  m_Name: yellowFoodColor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2385,7 +2385,7 @@ GameObject:
   - component: {fileID: 687382603}
   - component: {fileID: 687382604}
   m_Layer: 0
-  m_Name: Sink_0
+  m_Name: sink
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2529,6 +2529,7 @@ MonoBehaviour:
     taskToComplete: {fileID: 0}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!1 &757464133
 GameObject:
@@ -3067,7 +3068,7 @@ GameObject:
   - component: {fileID: 945676620}
   - component: {fileID: 945676619}
   m_Layer: 0
-  m_Name: Flashlight_0
+  m_Name: flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4151,7 +4152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80211405f5f6e04babb362733210048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaskManager
-  experimentIndex: 7
+  experimentIndex: 8
   orderedTasks:
   - {fileID: 222512299}
   - {fileID: 2056436616}
@@ -4160,11 +4161,11 @@ MonoBehaviour:
   - {fileID: 999647533}
   - {fileID: 2104961373}
   timeLimit: 240
-  penaltyTime: 30
+  penaltyTime: 45
   timerText: {fileID: 1566838544}
   penaltyText: {fileID: 166078824}
   penaltyTextDuration: 2
-  reaction: {fileID: 32900000, guid: 973fb8dc2e313fe458cacca494d1f6e4, type: 3}
+  reaction: {fileID: 32900000, guid: 0713584d228e14e4aa5137ffa81646c4, type: 3}
   videoScreen: {fileID: 1308841477}
   winPanel: {fileID: 428421517}
   losePanel: {fileID: 1937279545}
@@ -4288,7 +4289,7 @@ GameObject:
   - component: {fileID: 1317193558}
   - component: {fileID: 1317193560}
   m_Layer: 0
-  m_Name: Spoon_0
+  m_Name: spoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5974,7 +5975,7 @@ GameObject:
   - component: {fileID: 2069084998}
   - component: {fileID: 2069084997}
   m_Layer: 0
-  m_Name: lab_0
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6111,7 +6112,7 @@ GameObject:
   - component: {fileID: 2123345220}
   - component: {fileID: 2123345219}
   m_Layer: 0
-  m_Name: Cup_Empty_0
+  m_Name: cup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6280,36 +6281,42 @@ MonoBehaviour:
     taskToComplete: {fileID: 222512299}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 1
   - ingredientID: CitricAcid
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 2056436616}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: RedDye
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 811617183}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: YellowDye
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 304453232}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: Oil
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 999647533}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   - ingredientID: BakingSoda
     newToolID: 
     newTool: {fileID: 0}
     taskToComplete: {fileID: 2104961373}
     moveToPoint: {fileID: 0}
     hideObject: 0
+    resetToolAfterUse: 0
   defaultToolSprite: {fileID: -1465765673848044041, guid: 4385e32a9c543b848bef66e1743e72a2, type: 3}
 --- !u!1 &2135972185
 GameObject:

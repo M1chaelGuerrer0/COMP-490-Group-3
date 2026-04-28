@@ -2044,7 +2044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80211405f5f6e04babb362733210048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  experimentIndex: 10
+  experimentIndex: 12
   orderedTasks:
   - {fileID: 2138431951}
   - {fileID: 1231100054}
@@ -2055,7 +2055,7 @@ MonoBehaviour:
   - {fileID: 971529356}
   - {fileID: 1068129404}
   timeLimit: 240
-  penaltyTime: 30
+  penaltyTime: 50
   timerText: {fileID: 274557261}
   penaltyText: {fileID: 1125661376}
   penaltyTextDuration: 2
@@ -3111,10 +3111,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "1. Mark straw with pen\r\n2. Put straw through clay\r\n3. Pour rubbing
-    alcohol into the bottle about 1/3 to 1/2 full.\r\n4. Add food coloring\r\n5.
-    Swirl bottle to mix \r\n6. Fill dropper with the mixture\r\n7. Combine straw
-    and bottle\r\n8. Use dropper to drop liquid into straw\r\n"
+  m_text: "1. Mark straw with pen\r\n\n2. Put straw through clay\r\n\n3. Pour rubbing
+    alcohol into the bottle about 1/3 to 1/2 full.\r\n\n4. Add food coloring\r\n\n5.
+    Swirl bottle to mix \r\n\n6. Fill dropper with the mixture\r\n\n7. Combine straw
+    and bottle\r\n\n8. Use dropper to drop liquid into straw"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

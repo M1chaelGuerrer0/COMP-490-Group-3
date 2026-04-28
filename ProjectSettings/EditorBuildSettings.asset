@@ -24,17 +24,35 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1/AbsorptionPower.unity
     guid: 09d6b50bb02f3ab4fad2ab3aeff97cbb
   - enabled: 1
-    path: Assets/Scenes/Level2/TestTubeRainbow.unity
-    guid: d89f3e83b1610974084bb886a2036de4
+    path: Assets/Scenes/Level1/InvisibleFireExtinguisher.unity
+    guid: 24bd4f52f71fad4419f73f1647e45031
   - enabled: 1
     path: Assets/Scenes/Level2/ElephantToothpaste.unity
     guid: a7e32db13a6d1ea47a8035aff6a46cde
+  - enabled: 1
+    path: Assets/Scenes/Level2/LemonVolcano.unity
+    guid: 35607b59bb2eb5b49ac60cdea95efc24
+  - enabled: 1
+    path: Assets/Scenes/Level2/UnderwaterVolcano.unity
+    guid: 7b84d839bbad44345b2037d9f89f2f2f
   - enabled: 1
     path: Assets/Scenes/Level3/FireSnake.unity
     guid: f27696bc9da9d2445a6500f50eb3d53f
   - enabled: 1
     path: Assets/Scenes/Level3/LavaLamp.unity
     guid: b3ecd58a078712245b134ab5c30579d0
+  - enabled: 1
+    path: Assets/Scenes/Level3/WaterFiltration.unity
+    guid: 133ab608741cd4a4a84a91ed08f1bed5
+  - enabled: 1
+    path: Assets/Scenes/Level4/LemonBattery.unity
+    guid: 52673db86c0a8d04baadfc2b156dd551
+  - enabled: 1
+    path: Assets/Scenes/Level4/Slime.unity
+    guid: 12ea2413efd8ea742a17d186a9c035ae
+  - enabled: 1
+    path: Assets/Scenes/Level4/Thermometer.unity
+    guid: 9bb8e48c8bd7a744faba52628bbe2dac
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

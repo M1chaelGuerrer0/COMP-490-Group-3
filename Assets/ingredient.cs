@@ -1,34 +1,42 @@
 using UnityEngine;
 
-// Represents anything usable in the experiment
+/// <summary>
+/// Represents an ingredient or tool used in the experiment.
+/// Tracks the current identity and whether it should remain after a successful interaction.
+/// </summary>
 public class Ingredient : MonoBehaviour
 {
     public string ingredientID;
 
-    // to remember original identity (Spoon, Syringe, etc.)
+    // Original identity to restore after a tool has been transformed
     public string baseIngredientID;
 
     [SerializeField] private bool stayAfterUse = false;
     public bool StayAfterUse => stayAfterUse;
-    // If true, object will remain at new position after a successful interaction
-    // If false, it always returns to its original position (default behavior)
+
+    // If true, the object stays in its new position after being accepted by a container.
+    // If false, it will return to its original position.
 
     void Awake()
     {
-        // If not set, default to starting ID
+        // Default baseIngredientID to the starting ingredient if not already assigned
         if (string.IsNullOrEmpty(baseIngredientID))
         {
             baseIngredientID = ingredientID;
         }
     }
 
-    // Change what this object currently represents
+    /// <summary>
+    /// Update the ingredient ID to a new state.
+    /// </summary>
     public void SetIngredient(string newID, Task newTask)
     {
         ingredientID = newID;
     }
 
-    // Reset back to original state (e.g., Spoon, Syringe, etc.)
+    /// <summary>
+    /// Restore the ingredient back to its original base identity.
+    /// </summary>
     public void ResetIngredient()
     {
         ingredientID = baseIngredientID;

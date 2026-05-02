@@ -6,6 +6,9 @@ using static UnityEditor.Rendering.CameraUI;
 using System;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Handles login validation and scene switching for the login UI.
+/// </summary>
 public class login_script : MonoBehaviour
 {
     public InputField usernameInput;
@@ -13,12 +16,13 @@ public class login_script : MonoBehaviour
     public Text result;
 
     private string dbName = "URI=file:Users.db";
+
     void Start()
     {
         CreateDB();
     }
 
-    //Same processs here just put here to make sure that user has a database file
+    // Ensure the local SQLite database and Accounts table exist
     public void CreateDB()
     {
         using (var connection = new SqliteConnection(dbName))
@@ -34,7 +38,7 @@ public class login_script : MonoBehaviour
         }
     }
 
-    // will chack to see if there is a user and that they entered the information correctly
+    // Validate the entered username and password against the Accounts table
     public void ValidateUser()
     {
         string username = usernameInput.text;
@@ -74,11 +78,10 @@ public class login_script : MonoBehaviour
 
     }
 
-    //Used for the Register button to take users to the registration screen
+    // Load the registration scene when the user clicks Register
     public void changeScene()
     {
         SceneManager.LoadScene("Register");
     }
-
-    
 }
+

@@ -62,6 +62,7 @@ public class TaskManager : MonoBehaviour
     // UNITY METHODS
     // =========================
 
+    // Initialize timer, UI, and video player at scene start
     void Start()
     {
         SetupVideoPlayer();
@@ -76,6 +77,7 @@ public class TaskManager : MonoBehaviour
             pausePanel.SetActive(false);
     }
 
+    // Handle pause input and update the countdown timer each frame
     void Update()
     {
         // Handle pause/resume input ESCAPE key
@@ -104,6 +106,7 @@ public class TaskManager : MonoBehaviour
     // TASK FLOW
     // =========================
 
+    // Attempt to complete the current task and advance progression if correct
     public bool TryCompleteTask(Task attemptedTask)
     {
         if (IsCorrectTask(attemptedTask))
@@ -143,6 +146,7 @@ public class TaskManager : MonoBehaviour
     // TIMER METHODS
     // =========================
 
+    // Update the on-screen countdown timer text
     private void UpdateTimerUI()
     {
         if (timerText != null)
@@ -153,6 +157,7 @@ public class TaskManager : MonoBehaviour
         }
     }
 
+    // Subtract penalty time and show visual feedback
     public void AddPenalty()
     {
         timeRemaining -= penaltyTime;
@@ -169,6 +174,7 @@ public class TaskManager : MonoBehaviour
     // PENALTY TEXT DISPLAY
     // =========================
 
+    // Show the penalty text and animate its fade-out
     private void ShowPenaltyText()
     {
         Debug.Log("SHOWING PENALTY TEXT");
@@ -266,6 +272,7 @@ public class TaskManager : MonoBehaviour
     // VIDEO SYSTEM
     // =========================
 
+    // Configure the video player used for experiment completion feedback
     private void SetupVideoPlayer()
     {
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
@@ -290,6 +297,7 @@ public class TaskManager : MonoBehaviour
         videoPlayer.loopPointReached += OnVideoEnded;
     }
 
+    // Play the completion reaction video and show the render surface
     private void PlayReaction()
     {
         if (videoScreen != null)
@@ -298,6 +306,7 @@ public class TaskManager : MonoBehaviour
         videoPlayer.Play();
     }
 
+    // Called when the completion video finishes playing
     private void OnVideoEnded(VideoPlayer vp)
     {
         if (videoScreen != null)
@@ -324,6 +333,7 @@ public class TaskManager : MonoBehaviour
     [Header("Pause UI")]
     [SerializeField] private GameObject pausePanel;
     
+    // Pause the game, stop the timer, and show the pause UI
     public void PauseGame()
     {
         Time.timeScale = 0f;
@@ -335,6 +345,7 @@ public class TaskManager : MonoBehaviour
             pausePanel.SetActive(true);
     }
 
+    // Resume the game and restore interaction state
     public void ResumeGame()
     {
         if (gameEnded) return;

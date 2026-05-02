@@ -1,6 +1,8 @@
 using UnityEngine;
 
-// This script should be attached to any ingredient GameObject that you want to be draggable.
+/// <summary>
+/// Allows an object to be dragged by the mouse and dropped onto containers.
+/// </summary>
 public class Draggable : MonoBehaviour
 {
     private Vector3 offset;

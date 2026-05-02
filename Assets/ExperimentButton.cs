@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// used for the experiment buttons in level selector.
-// checks user's progress and locks respecitive experiments.
+/// <summary>
+/// Controls a level-selection button for a specific experiment.
+/// Locks the button if the current user is not logged in or has not reached that experiment.
+/// </summary>
 public class ExperimentButton : MonoBehaviour
 {
     [SerializeField] private int experimentIndex;
     private Button button;
 
+    // Initialize the button and disable it when the experiment is not yet unlocked
     void Start()
     {
         

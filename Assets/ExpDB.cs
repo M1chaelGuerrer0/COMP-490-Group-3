@@ -4,19 +4,24 @@ using Mono.Data.Sqlite;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Handles user account storage and experiment progress using a local SQLite database.
+/// </summary>
 public class ExpDB : MonoBehaviour
 {
     public int value = 1;
     public Text output;
 
-    //Creating the database file and what it will be named
+    // SQLite file path for the local database
     private string dbName = "URI=file:Users.db";
+
+    // Create the database file and table if they do not already exist
     void Start()
     {
         CreateDB();
     }
 
-    // Ensures that only one instance of the database exists across scenes
+    // Ensure only one ExpDB persists across scene loads
     void Awake()
     {
         if (FindObjectsByType<ExpDB>(FindObjectsSortMode.None).Length > 1)
@@ -28,7 +33,7 @@ public class ExpDB : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    //Creating the database and using the name for the file that we previously gave and creating the table in case that the file had not been made before
+    // Create the database and ensure the Accounts table exists
     public void CreateDB()
     {
         using (var connection = new SqliteConnection(dbName))
@@ -44,7 +49,7 @@ public class ExpDB : MonoBehaviour
         }
     }
 
-    //Adding a user into the table with the information that the user enters and chacking to see that the user doesn't already exist
+    // Add a new user record and then load the main menu scene
     public void AddUser(string username, string email, string password)
     {
         using (var connection = new SqliteConnection(dbName))
@@ -69,7 +74,7 @@ public class ExpDB : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    //Checks to see if the information entered matches with an existing account
+    // Check whether a username already exists in the Accounts table
     public bool UserExists(string username)
     {
         bool exists = false;
@@ -96,14 +101,13 @@ public class ExpDB : MonoBehaviour
 
     }
 
-    //Used for the Login buttin to have users change scenes to the Login screen
+    // Load the login scene
     public void changeScene()
     {
         SceneManager.LoadScene("Login");
     }
 
-
-    // updates experiment completion progress
+    // Update the saved experiment progress for the current user
     public void UpdateProgress(int newExperiment)
     {
         using (var connection = new SqliteConnection(dbName))
@@ -126,7 +130,7 @@ public class ExpDB : MonoBehaviour
         Debug.Log("Progress updated to: " + newExperiment);
     }
 
-    // gets experiment completion progress
+    // Retrieve the saved experiment progress for the current user
     public int GetProgress()
     {
         int experiment = 1;

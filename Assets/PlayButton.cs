@@ -1,7 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-// changes the text of the play button in main menu based on if user is a "Guest"
+/// <summary>
+/// Updates the main menu play button text based on the current user type.
+/// </summary>
 public class PlayButtonLabel : MonoBehaviour
 {
     private TMP_Text label;
@@ -11,6 +13,9 @@ public class PlayButtonLabel : MonoBehaviour
         label = GetComponentInChildren<TMP_Text>();
     }
 
+    /// <summary>
+    /// Set the button label for guests or signed-in users.
+    /// </summary>
     void Start()
     {
         if (UserSession.CurrentUsername == "Guest")

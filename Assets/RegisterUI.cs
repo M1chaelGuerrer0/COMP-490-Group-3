@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// Handles the input values in Register
+/// <summary>
+/// Handles the registration UI and creates a new user account.
+/// </summary>
 public class RegisterUI : MonoBehaviour
 {
     public InputField emailInput;
@@ -16,6 +18,9 @@ public class RegisterUI : MonoBehaviour
         db = FindFirstObjectByType<ExpDB>();
     }
 
+    /// <summary>
+    /// Validate registration fields and add a new user if the username is available.
+    /// </summary>
     public void Register()
     {
         string username = usernameInput.text;

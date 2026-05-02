@@ -237,6 +237,12 @@ public class TaskManager : MonoBehaviour
 
         PlayReaction();
 
+        // update session progress to unlock next experiment
+        SessionProgress.CurrentExperiment = Mathf.Max(
+            SessionProgress.CurrentExperiment,
+            experimentIndex + 1
+        );
+
         // send completion info to database
         ExpDB db = FindFirstObjectByType<ExpDB>();
 

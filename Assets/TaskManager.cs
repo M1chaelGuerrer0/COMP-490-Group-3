@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 /// <summary>
 /// Controls task progression, countdown timer, penalties, and game completion/failure.
@@ -14,7 +15,10 @@ public class TaskManager : MonoBehaviour
     // Static flag to globally lock interactions (e.g. during video playback, pause, etc.)
     public static bool IsInteractionLocked = false;
 
-    // experiment index number to keep track of which experiment the user is on for database purposes
+    /// <summary>
+    /// Experiment index number to track which experiment the user is on for database purposes.
+    /// Used to determine progress advancement and completion tracking.
+    /// </summary>
     [SerializeField] private int experimentIndex;
 
     // =========================
@@ -24,6 +28,8 @@ public class TaskManager : MonoBehaviour
     [Header("Task Order")]
     [SerializeField] private List<Task> orderedTasks;
     private int currentTaskIndex = 0;
+
+    [SerializeField] private List<TaskItemUI> taskUIItems;
 
     // =========================
     // TIMER
@@ -45,8 +51,17 @@ public class TaskManager : MonoBehaviour
     [Header("Penalty Feedback")]
     [SerializeField] private TMP_Text penaltyText;
     [SerializeField] private float penaltyTextDuration = 2f;
-
     private Coroutine penaltyCoroutine;
+
+
+    // =========================
+    // Postive Text
+    // =========================
+
+    [Header("Positive Feedback")]
+    [SerializeField] private TMP_Text successText;
+    [SerializeField] private float successTextDuration = 1.5f;
+    private Coroutine successCoroutine;
 
     // =========================
     // VIDEO (SUCCESS)
@@ -62,7 +77,10 @@ public class TaskManager : MonoBehaviour
     // UNITY METHODS
     // =========================
 
-    // Initialize timer, UI, and video player at scene start
+    /// <summary>
+    /// Initialize the task manager at scene start.
+    /// Sets up video player, initializes timer, and hides UI panels.
+    /// </summary>
     void Start()
     {
         SetupVideoPlayer();
@@ -77,7 +95,10 @@ public class TaskManager : MonoBehaviour
             pausePanel.SetActive(false);
     }
 
-    // Handle pause input and update the countdown timer each frame
+    /// <summary>
+    /// Handle input and timer updates each frame.
+    /// Processes pause/resume input and updates the countdown timer.
+    /// </summary>
     void Update()
     {
         // Handle pause/resume input ESCAPE key
@@ -106,7 +127,12 @@ public class TaskManager : MonoBehaviour
     // TASK FLOW
     // =========================
 
-    // Attempt to complete the current task and advance progression if correct
+    /// <summary>
+    /// Attempts to complete the specified task.
+    /// Returns true if it was the correct next task, false otherwise.
+    /// </summary>
+    /// <param name="attemptedTask">The task the player is trying to complete.</param>
+    /// <returns>True if the task was correct and completed, false if wrong.</returns>
     public bool TryCompleteTask(Task attemptedTask)
     {
         if (IsCorrectTask(attemptedTask))
@@ -119,16 +145,33 @@ public class TaskManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Checks if the given task is the currently required task.
+    /// </summary>
+    /// <param name="task">The task to check.</param>
+    /// <returns>True if this is the correct current task.</returns>
     private bool IsCorrectTask(Task task)
     {
         return task == orderedTasks[currentTaskIndex];
     }
 
+    /// <summary>
+    /// Advances to the next task in the sequence.
+    /// Updates UI, increments task index, and checks for completion.
+    /// </summary>
     private void AdvanceTask()
     {
         Debug.Log("Correct task completed!");
 
+        // Mark current task as complete in UI
+        if (currentTaskIndex < taskUIItems.Count)
+        {
+            taskUIItems[currentTaskIndex].Complete();
+        }
+
         currentTaskIndex++;
+
+        ShowSuccessFeedback();
 
         if (currentTaskIndex >= orderedTasks.Count)
         {
@@ -136,6 +179,9 @@ public class TaskManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles an incorrect task attempt by applying a penalty.
+    /// </summary>
     private void HandleWrongTask()
     {
         Debug.Log("Wrong task! Penalty applied.");
@@ -146,7 +192,6 @@ public class TaskManager : MonoBehaviour
     // TIMER METHODS
     // =========================
 
-    // Update the on-screen countdown timer text
     private void UpdateTimerUI()
     {
         if (timerText != null)
@@ -157,7 +202,6 @@ public class TaskManager : MonoBehaviour
         }
     }
 
-    // Subtract penalty time and show visual feedback
     public void AddPenalty()
     {
         timeRemaining -= penaltyTime;
@@ -170,11 +214,61 @@ public class TaskManager : MonoBehaviour
         ShowPenaltyText();
     }
 
+    public void ShowSuccessFeedback()
+    {
+        if (successText == null) return;
+
+        if (successCoroutine != null)
+            StopCoroutine(successCoroutine);
+
+        successCoroutine = StartCoroutine(SuccessTextRoutine());
+    }
+
+    private IEnumerator SuccessTextRoutine()
+    {
+        successText.gameObject.SetActive(true);
+
+        Color originalColor = successText.color;
+
+        successText.color = new Color(
+            originalColor.r,
+            originalColor.g,
+            originalColor.b,
+            1f
+        );
+
+        float duration = successTextDuration;
+        float timer = 0f;
+
+        // Same visible delay as penalty
+        float visibleTime = 0.5f;
+        yield return new WaitForSecondsRealtime(visibleTime);
+
+        // Same fade logic as penalty
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+
+            float alpha = Mathf.Lerp(1f, 0f, timer / duration);
+            successText.color = new Color(
+                originalColor.r,
+                originalColor.g,
+                originalColor.b,
+                alpha
+            );
+
+            yield return null;
+        }
+
+        // Reset
+        successText.gameObject.SetActive(false);
+        successText.color = originalColor;
+    }
+
     // =========================
     // PENALTY TEXT DISPLAY
     // =========================
 
-    // Show the penalty text and animate its fade-out
     private void ShowPenaltyText()
     {
         Debug.Log("SHOWING PENALTY TEXT");
@@ -226,6 +320,10 @@ public class TaskManager : MonoBehaviour
     // GAME END STATES
     // =========================
 
+    /// <summary>
+    /// Handles successful completion of all tasks.
+    /// Stops the timer, locks interactions, plays reaction video, and updates progress.
+    /// </summary>
     private void HandleSuccess()
     {
         Debug.Log($"All tasks completed! Time left: {timeRemaining:F2} seconds.");
@@ -262,6 +360,10 @@ public class TaskManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles experiment failure due to time running out.
+    /// Stops the timer, locks interactions, and shows the lose panel.
+    /// </summary>
     private void HandleFailure()
     {
         Debug.Log("Time's up! Experiment failed.");
@@ -278,7 +380,10 @@ public class TaskManager : MonoBehaviour
     // VIDEO SYSTEM
     // =========================
 
-    // Configure the video player used for experiment completion feedback
+    /// <summary>
+    /// Configures the video player component for playing completion reactions.
+    /// Sets up render texture, assigns video clip, and subscribes to end event.
+    /// </summary>
     private void SetupVideoPlayer()
     {
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
@@ -303,7 +408,6 @@ public class TaskManager : MonoBehaviour
         videoPlayer.loopPointReached += OnVideoEnded;
     }
 
-    // Play the completion reaction video and show the render surface
     private void PlayReaction()
     {
         if (videoScreen != null)
@@ -312,7 +416,6 @@ public class TaskManager : MonoBehaviour
         videoPlayer.Play();
     }
 
-    // Called when the completion video finishes playing
     private void OnVideoEnded(VideoPlayer vp)
     {
         if (videoScreen != null)
@@ -337,9 +440,14 @@ public class TaskManager : MonoBehaviour
     // =========================
 
     [Header("Pause UI")]
+    /// <summary>
+    /// UI panel shown when the game is paused.
+    /// </summary>
     [SerializeField] private GameObject pausePanel;
     
-    // Pause the game, stop the timer, and show the pause UI
+    /// <summary>
+    /// Pauses the game by stopping time and the timer, locking interactions, and showing the pause panel.
+    /// </summary>
     public void PauseGame()
     {
         Time.timeScale = 0f;
@@ -351,7 +459,10 @@ public class TaskManager : MonoBehaviour
             pausePanel.SetActive(true);
     }
 
-    // Resume the game and restore interaction state
+    /// <summary>
+    /// Resumes the game by restoring time scale and timer, unlocking interactions, and hiding the pause panel.
+    /// Also resets any dragging objects to prevent bugs when resuming.
+    /// </summary>
     public void ResumeGame()
     {
         if (gameEnded) return;
@@ -372,6 +483,9 @@ public class TaskManager : MonoBehaviour
             pausePanel.SetActive(false);
     }
 
+    /// <summary>
+    /// Toggles between paused and resumed game states based on current pause panel visibility.
+    /// </summary>
     public void TogglePause()
     {
         if (pausePanel != null && pausePanel.activeSelf)

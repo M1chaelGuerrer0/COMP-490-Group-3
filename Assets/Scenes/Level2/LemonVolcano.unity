@@ -1291,7 +1291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '2. Cut the bottom part of the lemon
+  m_text: '2. Cut the bottom part of the lemon.
 
 '
   m_isRightToLeft: 0
@@ -2418,7 +2418,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '3. Scoop some of the lemon out with the spoon
+  m_text: '3. Scoop some of the lemon out with the spoon.
 
 '
   m_isRightToLeft: 0
@@ -3598,7 +3598,7 @@ MonoBehaviour:
   penaltyText: {fileID: 2012875070}
   penaltyTextDuration: 2
   successText: {fileID: 1522952587}
-  successTextDuration: 1.5
+  successTextDuration: 2
   reaction: {fileID: 32900000, guid: 7f42ec7efa87f6a4dba38cd1001d1406, type: 3}
   videoScreen: {fileID: 1412920773}
   winPanel: {fileID: 1827397146}
@@ -4953,7 +4953,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1. Cut the top part of the lemon
+  m_text: 1. Cut the top part of the lemon.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6021,7 +6021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1571072853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6468,7 +6468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '4. Add red food coloring
+  m_text: '4. Add red food coloring.
 
 '
   m_isRightToLeft: 0
@@ -7441,7 +7441,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '6. Poke the lemon with the knife
+  m_text: '6. Poke the lemon with the knife.
 
 '
   m_isRightToLeft: 0
@@ -7792,7 +7792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '5. Add baking soda
+  m_text: '5. Add baking soda.
 
 '
   m_isRightToLeft: 0

@@ -166,7 +166,12 @@ public class TaskManager : MonoBehaviour
         // Mark current task as complete in UI
         if (currentTaskIndex < taskUIItems.Count)
         {
-            taskUIItems[currentTaskIndex].Complete();
+            TaskItemUI uiItem = taskUIItems[currentTaskIndex];
+
+            if (uiItem != null)
+            {
+                uiItem.Complete();
+            }
         }
 
         currentTaskIndex++;

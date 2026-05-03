@@ -567,7 +567,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1. Add water (10 ml) into test tube
+  m_text: '1. Add water (10 ml) into test tube.
 
 '
   m_isRightToLeft: 0
@@ -2167,7 +2167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '4. Add Oil
+  m_text: '4. Add Oil.
 
 '
   m_isRightToLeft: 0
@@ -3948,7 +3948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '5. Add citric acid
+  m_text: '5. Add citric acid.
 
 '
   m_isRightToLeft: 0
@@ -5046,7 +5046,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1101639076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5223,7 +5223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '2. Add red dye
+  m_text: '2. Add red dye.
 
 '
   m_isRightToLeft: 0
@@ -5464,7 +5464,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '3. Add baking soda
+  m_text: '3. Add baking soda.
 
 '
   m_isRightToLeft: 0
@@ -7666,7 +7666,7 @@ MonoBehaviour:
   penaltyText: {fileID: 598738002}
   penaltyTextDuration: 2
   successText: {fileID: 103151769}
-  successTextDuration: 1.5
+  successTextDuration: 2
   reaction: {fileID: 32900000, guid: b67a1b71a2356f34f8cda2f2fce8d20d, type: 3}
   videoScreen: {fileID: 354393386}
   winPanel: {fileID: 863971758}

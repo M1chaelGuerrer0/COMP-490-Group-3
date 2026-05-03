@@ -3018,7 +3018,7 @@ MonoBehaviour:
   penaltyText: {fileID: 1158348441}
   penaltyTextDuration: 2
   successText: {fileID: 355347}
-  successTextDuration: 1.5
+  successTextDuration: 2
   reaction: {fileID: 32900000, guid: 0389f982f39774c4eb00dd566effc26b, type: 3}
   videoScreen: {fileID: 1495462818}
   winPanel: {fileID: 1897164421}

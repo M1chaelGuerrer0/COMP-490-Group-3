@@ -12,8 +12,9 @@ This application allows users to perform virtual science experiments in a safe a
 
 ## How to Play
 1. Launch the application  
-2. (Optional) Register or log in to save progress  
-3. Select an experiment  
+   ![Application](Docs/images/exe_file.png)
+2. (Optional) Register or login to save progress  
+3. Select a level and experiment  
 4. Follow the on-screen to-do list  
 5. Complete tasks in the correct order  
 

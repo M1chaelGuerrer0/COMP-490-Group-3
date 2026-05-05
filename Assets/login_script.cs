@@ -1,8 +1,7 @@
 using UnityEngine;
-using System.Data;
 using Mono.Data.Sqlite;
 using UnityEngine.UI;
-using static UnityEditor.Rendering.CameraUI;
+using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +12,7 @@ public class login_script : MonoBehaviour
 {
     public InputField usernameInput;
     public InputField passwordInput;
-    public Text result;
+    public TextMeshProUGUI result;
 
     private string dbName = "URI=file:Users.db";
 

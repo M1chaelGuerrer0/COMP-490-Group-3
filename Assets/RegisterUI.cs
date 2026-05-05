@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Handles the registration UI and creates a new user account.
@@ -9,7 +10,7 @@ public class RegisterUI : MonoBehaviour
     public InputField emailInput;
     public InputField passwordInput;
     public InputField usernameInput;
-    public Text output;
+    public TextMeshProUGUI output;
 
     private ExpDB db;
 

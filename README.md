@@ -57,7 +57,7 @@ This application allows users to perform virtual science experiments in a safe a
 
 - Brandon Dutt
   - Mascot design  
-  - Asset creation (selectd visuals and elements)
+  - Asset creation (selected visuals and elements)
   - Experiment contribution (1 experiment)
 
 ### Art Contributions
